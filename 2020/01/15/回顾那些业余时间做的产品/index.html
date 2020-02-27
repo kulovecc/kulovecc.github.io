@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kulove.cc","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="过去一段时间里，林林总总搞了很多“不务正业”的东西，借着最近这段闲下来的时间来总结一下。 一、小程序 魔法投资公式(练手项目)根据Joel Greenblatt的那本《The Little Book That Beats The Market》书中提到的魔法公式写成的，但是书中提到的价值投资并不适用于国内，没人愿意购买计算出的投资项目就关闭了。  最右神评论(练手项目)那段时间内我很喜欢看神回复，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回顾那些业余时间做的产品">
+<meta property="og:url" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/index.html">
+<meta property="og:site_name" content="Louis Blog">
+<meta property="og:description" content="过去一段时间里，林林总总搞了很多“不务正业”的东西，借着最近这段闲下来的时间来总结一下。 一、小程序 魔法投资公式(练手项目)根据Joel Greenblatt的那本《The Little Book That Beats The Market》书中提到的魔法公式写成的，但是书中提到的价值投资并不适用于国内，没人愿意购买计算出的投资项目就关闭了。  最右神评论(练手项目)那段时间内我很喜欢看神回复，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cspl.jpg">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Chb.png">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cl1.png">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cl2.png">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Csn.png">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Ctx.png">
+<meta property="og:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Ccb.png">
+<meta property="article:published_time" content="2020-01-15T05:29:21.000Z">
+<meta property="article:modified_time" content="2020-02-26T06:53:55.031Z">
+<meta property="article:author" content="Louis Yang">
+<meta property="article:tag" content="总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cspl.jpg">
+
+<link rel="canonical" href="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>回顾那些业余时间做的产品 | Louis Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108067514-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-108067514-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Louis Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          回顾那些业余时间做的产品
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-15 13:29:21" itemprop="dateCreated datePublished" datetime="2020-01-15T13:29:21+08:00">2020-01-15</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/15/回顾那些业余时间做的产品/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>过去一段时间里，林林总总搞了很多“不务正业”的东西，借着最近这段闲下来的时间来总结一下。</p>
+<h2 id="一、小程序"><a href="#一、小程序" class="headerlink" title="一、小程序"></a>一、小程序</h2><ol>
+<li><p>魔法投资公式(练手项目)<br>根据Joel Greenblatt的那本《The Little Book That Beats The Market》书中提到的魔法公式写成的，但是书中提到的价值投资并不适用于国内，没人愿意购买计算出的投资项目就关闭了。</p>
+</li>
+<li><p>最右神评论(练手项目)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cspl.jpg" alt><br>那段时间内我很喜欢看神回复，所以这个小程序就诞生了，数据主要采集于知乎、网易、豆瓣。</p>
+</li>
+<li><p>许多包(投入精力最大，耗时两个月(周末+每天下班开发))<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Chb.png" alt><br>为什么说投入精力最大呢？因为整个技术栈下来涉及到语音识别、图片识别、高并发、支付资金监管等等方面；而且除了截图上面的几种玩法，还有已经计划中的包括拼图画图、表情、条件、主题、互动等等类型(比QQ还要早一年..)，可惜因为政策原因，导致第一版没有上线，后面也就不了了之了。</p>
+</li>
+<li><p>恋爱小记(给女朋友做的)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cl1.png" alt><br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cl2.png" alt><br>程序猿的浪漫，你懂的。</p>
+</li>
+</ol>
+<h2 id="二、APP"><a href="#二、APP" class="headerlink" title="二、APP"></a>二、APP</h2><ol>
+<li><p>电音CLUB(电音资讯、活动组队)<br>电子音乐的魅力是无穷的!如果能时时刻刻了解最新电音资讯、电音活动就更好了!<br>(PS：其实是因为第一次去电音节找不到队友。。一个人太尴尬，才想着做一个集资讯和组队于一体的APP。直到现在，我也觉得这个产品很有潜力。)</p>
+</li>
+<li><p>念念(社交APP，LBS交友，念念不忘，必有回响)<br>这款产品主要做的是虚拟恋人方面的，但一直上不了架，直到后来比心出现，就没有再开发了。</p>
+</li>
+</ol>
+<h2 id="三、网站"><a href="#三、网站" class="headerlink" title="三、网站"></a>三、网站</h2><ol>
+<li>聚合阅读(RSS订阅+爬虫)<br>市面上已经有了很多的RSS订阅工具为什么还要做这个呢？因为他们都没有推送到Kindle的功能，而且很丑，为了让自己更舒服的阅读就开启了这个项目，不得不说Google的Material Design真的是漂亮。</li>
+</ol>
+<h3 id="四、其他"><a href="#四、其他" class="headerlink" title="四、其他"></a>四、其他</h3><ol>
+<li><p><a href="https://chrome.google.com/webstore/detail/sticky-notes/fnmndjbocidkodmnhanjingkafiihphh?hl=zh-CN" target="_blank" rel="noopener">Sticky Notes</a>(Chrome插件，网页版便签)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Csn.png" alt><br>灵感来源于一次产品会议，如果能在页面的各个位置添加便签该有多好？然后就有了这个插件。。</p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/mouse-click-effects-๑•́-∀/ljoolhajdkmjfneghpfiofogllcninii?hl=zh-CN" target="_blank" rel="noopener">鼠标点击特效 (๑•́ ∀ •̀๑)</a>(Chrome插件，好玩的鼠标点击特效)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Ctx.png" alt><br>目前为止，已经有了5000多的用户数，感觉大家对这种可爱的东西还是蛮有兴趣的。</p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/分享至微信/kfjjhhgchlmnnkejdjkjbohpnclfiilb?hl=zh-CN" target="_blank" rel="noopener">分享至微信</a>(Chrome插件，将浏览中的网页分享到微信)<br>生成供微信扫描的二维码，没有技术含量。</p>
+</li>
+</ol>
+<p><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Ccb.png" alt><br>不过说起来过去一年已经收到不下五封邮件要来收购Chrome扩展了。</p>
+<ol start="4">
+<li><p>“CTOS”(安全工具)</p>
+<p>对没错就是看门狗中的CTOS，市面上的安全扫描工具很多，但大都只会告诉你这个漏洞不会告诉你怎么利用。所以这个想法就诞生了，做一款集成定制很多PoC、Exp、一键GetShell于一体的工具。</p>
+</li>
+</ol>
+<h4 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h4><p>可以看到大多数项目因为政策原因不得已夭折了。<br>或许接下来的时间并不会在国内做产品了(海外产品已经有了想法)，因为政策限制实在太大(如果明明白白写清楚也好，但很多规则都是不透明的，明明满足条件还是各种理由不给你上架)。<br>小程序不能有输入框，个人去哪里办文网文(公司也不是那么容易下的)？APP不能上架，需要软著、ICP许可证，无疑对个人开发者来说打击是十分巨大的。<br>那做网站总行了吧？不好意思，备案一条龙了解一下？</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"># 总结</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/" rel="prev" title="走出舒适区 - 记一次离职">
+      <i class="fa fa-chevron-left"></i> 走出舒适区 - 记一次离职
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/" rel="next" title="15行代码实现给图片戴口罩 - Python">
+      15行代码实现给图片戴口罩 - Python <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、小程序"><span class="nav-number">1.</span> <span class="nav-text">一、小程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、APP"><span class="nav-number">2.</span> <span class="nav-text">二、APP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、网站"><span class="nav-number">3.</span> <span class="nav-text">三、网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#四、其他"><span class="nav-number">3.1.</span> <span class="nav-text">四、其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#五、总结"><span class="nav-number">3.1.1.</span> <span class="nav-text">五、总结</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Louis Yang</p>
+  <div class="site-description" itemprop="description">程序猿一枚，偶尔写写故事、搞搞安全。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kulovecc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:admin@kulove.cc" title="E-Mail → mailto:admin@kulove.cc"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/kulovecc" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Louis Yang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://kulove-cc.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/";
+    this.page.identifier = "2020/01/15/回顾那些业余时间做的产品/";
+    this.page.title = "回顾那些业余时间做的产品";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kulove-cc.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

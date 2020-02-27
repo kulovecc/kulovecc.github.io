@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kulove.cc","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Louis Blog">
+<meta property="og:url" content="http://kulove.cc/index.html">
+<meta property="og:site_name" content="Louis Blog">
+<meta property="og:description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Louis Yang">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://kulove.cc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false
+  };
+</script>
+
+  <title>Louis Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108067514-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-108067514-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Louis Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/" class="post-title-link" itemprop="url">15行代码实现给图片戴口罩 - Python</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-01 21:42:08" itemprop="dateCreated datePublished" datetime="2020-02-01T21:42:08+08:00">2020-02-01</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/01/15行代码实现给图片戴口罩-Python/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>万万没想到，疫情如此严重，只是反应迟了一点，发现口罩已经买不到了…只好写段代码，自动给图片戴上口罩，聊以慰藉。</p>
+<p>我们先来看下原始图片和效果图片（图片是网上找来的，不追星，如有冒犯请见谅。）：</p>
+<img src="/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/cai_mask.png">
+
+<p>技术方面主要用到人脸识别，首先安装依赖：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install face_recognition</span><br><span class="line"><span class="comment"># face_recognition是一个开源的人脸识别框架，可以识别人脸的128个关键点</span></span><br><span class="line"><span class="comment"># Windows下推荐使用anaconda安装，不然安装dlib依赖可能会遇到各种莫名其妙的问题</span></span><br></pre></td></tr></table></figure>
+
+<p>OK，上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw</span><br><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">image = face_recognition.load_image_file(<span class="string">"cai.jpg"</span>)</span><br><span class="line">face_landmarks_list = face_recognition.face_landmarks(image)</span><br><span class="line">pil_image = Image.fromarray(image)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> face_landmarks <span class="keyword">in</span> face_landmarks_list:</span><br><span class="line">    d = ImageDraw.Draw(pil_image)</span><br><span class="line">    <span class="comment"># 画一下人脸识别效果</span></span><br><span class="line">    <span class="keyword">for</span> facial_feature <span class="keyword">in</span> face_landmarks.keys():</span><br><span class="line">        d.line(face_landmarks[facial_feature], width=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>来看一下人脸识别的效果：</p>
+<img src="/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/cai.png">
+
+<p>嗯，还是很准确的，接下来就给他戴上口罩：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># 首先确定口罩大小，下面四行注释是我找到的四个关键点(上图可见)</span></span><br><span class="line">    <span class="comment"># d.text(face_landmarks['chin'][3], 'l')</span></span><br><span class="line">    <span class="comment"># d.text(face_landmarks['chin'][13], 'r')</span></span><br><span class="line">    <span class="comment"># d.text(face_landmarks['chin'][8], 'b')</span></span><br><span class="line">    <span class="comment"># d.text(face_landmarks['nose_bridge'][2], 'u')</span></span><br><span class="line">    mask_image = Image.open(<span class="string">'mask.png'</span>)</span><br><span class="line">    mask_length = face_landmarks[<span class="string">'chin'</span>][<span class="number">13</span>][<span class="number">0</span>]-face_landmarks[<span class="string">'chin'</span>][<span class="number">3</span>][<span class="number">0</span>]</span><br><span class="line">    mask_height = face_landmarks[<span class="string">'chin'</span>][<span class="number">8</span>][<span class="number">1</span>]-face_landmarks[<span class="string">'nose_bridge'</span>][<span class="number">2</span>][<span class="number">1</span>]</span><br><span class="line">    mask_image = mask_image.resize((mask_length, mask_height))</span><br><span class="line">    <span class="comment"># 口罩的角度也要随着脸型调整一下</span></span><br><span class="line">    rotation = math.atan2(face_landmarks[<span class="string">'nose_bridge'</span>][<span class="number">3</span>][<span class="number">0</span>] - face_landmarks[<span class="string">'nose_bridge'</span>][<span class="number">0</span>][<span class="number">0</span>], face_landmarks[<span class="string">'nose_bridge'</span>][<span class="number">3</span>][<span class="number">1</span>] - face_landmarks[<span class="string">'nose_bridge'</span>][<span class="number">0</span>][<span class="number">1</span>])*<span class="number">100</span></span><br><span class="line">    mask_image = mask_image.rotate(rotation)</span><br><span class="line">    <span class="comment"># 因为素材是N95口罩，所以要相应的处理下y轴的坐标</span></span><br><span class="line">    pil_image.paste(mask_image, (face_landmarks[<span class="string">'chin'</span>][<span class="number">3</span>][<span class="number">0</span>], face_landmarks[<span class="string">'chin'</span>][<span class="number">3</span>][<span class="number">1</span>] - int(mask_height/<span class="number">2</span>)), mask_image)</span><br><span class="line">    </span><br><span class="line">pil_image.show()</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/02/01/15%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%BB%99%E5%9B%BE%E7%89%87%E6%88%B4%E5%8F%A3%E7%BD%A9-Python/ssmask.png">
+
+<p>当然，也可以给一群人都戴上口罩，上面只是很简单的一个脚本，优化空间还有很多，比如口罩的旋转角度算法、低分辨率下的人脸识别等等。</p>
+<p>最后呼吁大家提高对本次疫情的重视程度，种种迹象表明这次比非典要严重很多很多。</p>
+<p>希望大家平安无事！早日战胜疫情！加油！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/" class="post-title-link" itemprop="url">回顾那些业余时间做的产品</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-15 13:29:21" itemprop="dateCreated datePublished" datetime="2020-01-15T13:29:21+08:00">2020-01-15</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/15/回顾那些业余时间做的产品/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>过去一段时间里，林林总总搞了很多“不务正业”的东西，借着最近这段闲下来的时间来总结一下。</p>
+<h2 id="一、小程序"><a href="#一、小程序" class="headerlink" title="一、小程序"></a>一、小程序</h2><ol>
+<li><p>魔法投资公式(练手项目)<br>根据Joel Greenblatt的那本《The Little Book That Beats The Market》书中提到的魔法公式写成的，但是书中提到的价值投资并不适用于国内，没人愿意购买计算出的投资项目就关闭了。</p>
+</li>
+<li><p>最右神评论(练手项目)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cspl.jpg" alt><br>那段时间内我很喜欢看神回复，所以这个小程序就诞生了，数据主要采集于知乎、网易、豆瓣。</p>
+</li>
+<li><p>许多包(投入精力最大，耗时两个月(周末+每天下班开发))<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Chb.png" alt><br>为什么说投入精力最大呢？因为整个技术栈下来涉及到语音识别、图片识别、高并发、支付资金监管等等方面；而且除了截图上面的几种玩法，还有已经计划中的包括拼图画图、表情、条件、主题、互动等等类型(比QQ还要早一年..)，可惜因为政策原因，导致第一版没有上线，后面也就不了了之了。</p>
+</li>
+<li><p>恋爱小记(给女朋友做的)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cl1.png" alt><br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Cl2.png" alt><br>程序猿的浪漫，你懂的。</p>
+</li>
+</ol>
+<h2 id="二、APP"><a href="#二、APP" class="headerlink" title="二、APP"></a>二、APP</h2><ol>
+<li><p>电音CLUB(电音资讯、活动组队)<br>电子音乐的魅力是无穷的!如果能时时刻刻了解最新电音资讯、电音活动就更好了!<br>(PS：其实是因为第一次去电音节找不到队友。。一个人太尴尬，才想着做一个集资讯和组队于一体的APP。直到现在，我也觉得这个产品很有潜力。)</p>
+</li>
+<li><p>念念(社交APP，LBS交友，念念不忘，必有回响)<br>这款产品主要做的是虚拟恋人方面的，但一直上不了架，直到后来比心出现，就没有再开发了。</p>
+</li>
+</ol>
+<h2 id="三、网站"><a href="#三、网站" class="headerlink" title="三、网站"></a>三、网站</h2><ol>
+<li>聚合阅读(RSS订阅+爬虫)<br>市面上已经有了很多的RSS订阅工具为什么还要做这个呢？因为他们都没有推送到Kindle的功能，而且很丑，为了让自己更舒服的阅读就开启了这个项目，不得不说Google的Material Design真的是漂亮。</li>
+</ol>
+<h3 id="四、其他"><a href="#四、其他" class="headerlink" title="四、其他"></a>四、其他</h3><ol>
+<li><p><a href="https://chrome.google.com/webstore/detail/sticky-notes/fnmndjbocidkodmnhanjingkafiihphh?hl=zh-CN" target="_blank" rel="noopener">Sticky Notes</a>(Chrome插件，网页版便签)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Csn.png" alt><br>灵感来源于一次产品会议，如果能在页面的各个位置添加便签该有多好？然后就有了这个插件。。</p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/mouse-click-effects-๑•́-∀/ljoolhajdkmjfneghpfiofogllcninii?hl=zh-CN" target="_blank" rel="noopener">鼠标点击特效 (๑•́ ∀ •̀๑)</a>(Chrome插件，好玩的鼠标点击特效)<br><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Ctx.png" alt><br>目前为止，已经有了5000多的用户数，感觉大家对这种可爱的东西还是蛮有兴趣的。</p>
+</li>
+<li><p><a href="https://chrome.google.com/webstore/detail/分享至微信/kfjjhhgchlmnnkejdjkjbohpnclfiilb?hl=zh-CN" target="_blank" rel="noopener">分享至微信</a>(Chrome插件，将浏览中的网页分享到微信)<br>生成供微信扫描的二维码，没有技术含量。</p>
+</li>
+</ol>
+<p><img src="/2020/01/15/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81/%E5%9B%9E%E9%A1%BE%E9%82%A3%E4%BA%9B%E4%B8%9A%E4%BD%99%E6%97%B6%E9%97%B4%E5%81%9A%E7%9A%84%E4%BA%A7%E5%93%81%5Ccb.png" alt><br>不过说起来过去一年已经收到不下五封邮件要来收购Chrome扩展了。</p>
+<ol start="4">
+<li><p>“CTOS”(安全工具)</p>
+<p>对没错就是看门狗中的CTOS，市面上的安全扫描工具很多，但大都只会告诉你这个漏洞不会告诉你怎么利用。所以这个想法就诞生了，做一款集成定制很多PoC、Exp、一键GetShell于一体的工具。</p>
+</li>
+</ol>
+<h4 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h4><p>可以看到大多数项目因为政策原因不得已夭折了。<br>或许接下来的时间并不会在国内做产品了(海外产品已经有了想法)，因为政策限制实在太大(如果明明白白写清楚也好，但很多规则都是不透明的，明明满足条件还是各种理由不给你上架)。<br>小程序不能有输入框，个人去哪里办文网文(公司也不是那么容易下的)？APP不能上架，需要软著、ICP许可证，无疑对个人开发者来说打击是十分巨大的。<br>那做网站总行了吧？不好意思，备案一条龙了解一下？</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/" class="post-title-link" itemprop="url">走出舒适区 - 记一次离职</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-15 10:19:39" itemprop="dateCreated datePublished" datetime="2019-11-15T10:19:39+08:00">2019-11-15</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/11/15/走出舒适区-记一次离职/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>几天以前，终于从在职了四年多的公司离职了。</p>
+<p>其实之前就在考虑要不要走，随着技术架构逐渐稳定，最近一年的工作趋于平淡，大多数时间可能也就是优化一下架构、写写业务逻辑、改改BUG之类的。</p>
+<p>然后这半年时间发生了很多无关技术的事情，其中不乏优秀同事的离开、空降另一团队内斗等等，实在厌烦这些勾心斗角，走掉或许是一个不错的选择。</p>
+<p>休息了几天，闲下来索性总结一下在前东家的工作职责：</p>
+<ol>
+<li>16-17年，侧重于业务开发，为已有产品排查、检测并修复安全隐患，信息安全不容小窥；</li>
+</ol>
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/sec.png" style="zoom:80%;">
+
+<ol start="2">
+<li>17-18年，进入架构组，为新产品设计实施了部分架构，其中包含身份认证、邮件短信、页面引擎、分布式配置、日志管理等；</li>
+</ol>
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/sa.png" style="zoom:95%;">
+
+<ol start="3">
+<li>19年，引入新技术、新模式，其中包含Docker的引入、VSTO开发的Office套件、Flask实现的数据库多租户解决方案等。</li>
+</ol>
+<p>最后，附上在前东家四年间所获得的荣誉证书，免得被误认为是态度不端正、能力不行干不下去才走的。。</p>
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/1.jpg" style="zoom:50%;">
+
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/2.jpg" style="zoom:50%;">
+
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/3.jpg" style="zoom:50%;">
+
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/4.jpg" style="zoom:50%;">
+
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/5.jpg" style="zoom:50%;">
+
+<img src="/2019/11/15/%E8%B5%B0%E5%87%BA%E8%88%92%E9%80%82%E5%8C%BA-%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A6%BB%E8%81%8C/6.jpg" style="zoom:50%;">
+
+<p>嗯，现在到过年还有两个月的时间，这段时间准备回去陪陪父母顺便考个驾照，静下心来思考下以后的路职业规划（之前是在往全栈工程师发展（后面可能会单独写一篇文章回顾自己独立做的产品），后续可能会往互联网系统架构方面发展），学学新东西，免得和主流技术脱节。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">Kali Linux 高效破解Wifi密码</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-22 18:02:30" itemprop="dateCreated datePublished" datetime="2018-10-22T18:02:30+08:00">2018-10-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/22/Kali-Linux-高效破解Wifi密码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>起因是最近买了个Wifi Pineapple，感觉无线安全挺有意思，再加上网上破解Wifi的教程要么跑不起来、要么不是很详细，所以就准备写这篇文章。</p>
+</blockquote>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><blockquote>
+<p>1.支持监听模式的无线网卡，我这里是小米的无线网卡</p>
+<p>2.Kali Linux，我这里是VMware虚拟机</p>
+</blockquote>
+<ol>
+<li><p>挂载网卡</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/0.png" alt="pic"></p>
+</li>
+<li><p>下载密码字典</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -o rockyou.txt https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 比较常用的密码字典，不是很大，国内Wifi成功率不会很高</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h2 id="开始破解"><a href="#开始破解" class="headerlink" title="开始破解"></a>开始破解</h2><ol>
+<li><p>检查网卡是否支持监听</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng</span><br><span class="line"><span class="meta">#</span><span class="bash"> 出现为wlan0的网卡则支持</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启后名称变成了wlan0mon</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索附近的网络</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里使用自己的Wifi作为对象，私自破解他人Wifi属于违法行为</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/1.png" alt="pic"></p>
+</li>
+<li><p>抓取握手包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng -c 11 --bssid 74:7D:24:77:2B:6F -w ~/ wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -c 为信道，这里主要是需要包含密码信息的数据包</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/2.png" alt="pic"></p>
+</li>
+<li><p>攻击，使目标设备断开重新连接，以便获取握手包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aireplay-ng -0 2 -a 74:7D:24:77:2B:6F -c 84:89:AD:6F:60:6F wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -a Wifi热点的BSSID -c 攻击设备的MAC地址</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/3.png" alt="pic"></p>
+</li>
+<li><p>耐心等待设备重新连接以抓取认证数据包</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/4.png" alt="pic"></p>
+<blockquote>
+<p>成功后可终止命令。</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/5.png" alt="pic"></p>
+</blockquote>
+</li>
+<li><p>暴力破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -a2 -b 74:7D:24:77:2B:6F -w rockyou.txt ~/*.cap</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/6.png" alt="pic"></p>
+<blockquote>
+<p>这里已经破解成功了，由于自己的密码并不是很复杂，所以很快就完成了破解，实际使用中使用这个密码字典成功率不会很高，需要使用更大的字典才行。</p>
+<p>但更大的字典意味着破解速度会被无限拉长。。</p>
+<p>所以下面使用Hashcat来破解密码，实际测试下来，速度确实快了几倍。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="使用Hashcat破解"><a href="#使用Hashcat破解" class="headerlink" title="使用Hashcat破解"></a>使用Hashcat破解</h2><blockquote>
+<p>官方介绍是：Hashcat是当前速度最快、最先进的开源密码恢复工具。</p>
+<p>我这边测试的是使用GPU破解，所以将环境转移到了Windows下。</p>
+</blockquote>
+<ol>
+<li><p>格式转换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat-utils/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载转换工具，将<span class="built_in">cap</span>文件转换为hccapx文件</span></span><br><span class="line"> ./cap2hccapx.exe -01.cap 01.hccapx</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/7.png" alt="pic"></p>
+</li>
+<li><p>使用密码字典破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 Hashcat，开始破解</span></span><br><span class="line"> .\hashcat64.exe -m 2500 01.hccapx .\rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/8.png" alt="pic"></p>
+<blockquote>
+<p>完成，速度超快！</p>
+</blockquote>
+</li>
+<li><p>使用掩码破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 知道密码长度使用此模式还行，如果不知道。。</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx -1 ?l?d ?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line">1 ?l?u ?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定11位</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx --increment --increment-min=8 --increment-max=15 -1 ?a ?1?1?1?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从8位破解到15位,超高难度</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 显卡不行，所以就不测试该模式的时间了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常见问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* Device #1: WARNING! Kernel exec timeout is not disabled.</span><br><span class="line">             This may cause &quot;CL_OUT_OF_RESOURCES&quot; or related errors.</span><br><span class="line">             To disable the timeout, see: https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch</span><br><span class="line">           </span><br><span class="line"># 参考 https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch 新建 wddm_timeout_patch.reg 文件，内容如下，保存后双击运行导入注册表。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]</span><br><span class="line">&quot;TdrLevel&quot;&#x3D;dword:00000000</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/" class="post-title-link" itemprop="url">一兆韦德的无耻套路</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-11 10:28:24" itemprop="dateCreated datePublished" datetime="2018-10-11T10:28:24+08:00">2018-10-11</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/11/一兆韦德的无耻套路/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>国庆过后，又胖了一圈。。同时感觉自己身体不太好，就想着办张健身卡。</p>
+<p>因为种种原因所以选择在二手平台上看转卡信息，结果无一例外都是人外出，委托给健身房，让自己去办理之类的。</p>
+<p>然后就网上查了下，发现这些全是套路，到了之后会以转让费或者人不在之类的做借口忽悠你办店里的套餐。如果你坚持办，ok，没问题，他们会在一段时间后把卡停掉，然后以公司卡违规之类的来让你升级卡片。</p>
+<p>套路多多，逐放弃转卡这一渠道，然后无意中看到全新卡，价格在转卡和门店价格之间，然后直接去办理就好，就放松了警惕，约好下班之后去办理。</p>
+<p><img src="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/1.jpg" alt></p>
+<p>到达门店之后，确认价格、时间等，这时候套路来了，它会拿来入会表格让你填，然后告诉你一些无关紧要的问题，比如无法转卡、无法停卡之类的小问题，让你放松警惕。</p>
+<p>表示这些没问题以后，会让你付款，付完款之后，会让店里的经理给你讲一些其他的问题，这时候经理就会说这个卡是公司卡，然后无法补卡，公司可以随时中止之类的条款。</p>
+<p>这个时候正常人肯定会想，这些事先没给说啊，没有知情权，那我不办了可以吧？可是事情并没有那么简单，然后两个人就开始双簧了，工作人员说这个不是我们的，是它们公司的，所以要去找它们。然后卖卡的人又会说已经报到公司去了，不能退。而且经理态度恶劣，说随便你用什么手段解决（录音可以听到）。</p>
+<p>这时候问题来了，POS机刷卡信息显示的是健身房，说是别的公司？会让一个不相干的拿来POS机？后来证明这个所谓公司的人其实就是店里的。</p>
+<p><img src="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/2.jpg" alt></p>
+<p>这个时候如果你态度强硬，表示会曝光并且去投诉的话，它就会服软说可以退，但是要几个月的时间，并且需要再次来店里确认退款手续。但是，这个时候主动权已经完全不在你手中了，既然说退款，那么有关部门也未必会管，而且具体多久就完全不能预计了。</p>
+<p>这里肯定会有人洗地了，什么价格很明显不合理啊、想占便宜活该被骗啊、谁叫你事先没问明白之类的，呵呵送给你。</p>
+<p>这个时候所谓经理就开始推销套餐，说可以把这个钱转过去，转成正式套餐，只需要付款剩下的部分，最终的结果就是花了近三倍的价格办了几年卡。。</p>
+<p>{ <a href="http://p20g9o3r4.bkt.clouddn.com/1.mp3}" target="_blank" rel="noopener">http://p20g9o3r4.bkt.clouddn.com/1.mp3}</a></p>
+<p>说到最后这张卡，我是不准备退的，写出来主要是防止更多的人上当受骗。还有就是态度问题：办卡的时候你是爷，办了卡之后它是爷，简直一百八十度转弯。没错，约定好的承诺没完全兑现，一直拖着。</p>
+<p>除此之外还有几点：第一点是不知道以这种近乎胁迫的形式签的合同有没有效？第二是也没有那么多的精力来搞维权，相信它们手段肯定还是有一套的；第三就是我确实也需要一张健身卡，只是手段令人十分不齿罢了。</p>
+<p>写的有点乱，本以为小心翼翼，结果套路防不胜防。避免一些不必要的麻烦，所以图片和录音都是经过处理的 。如果能让无良商家收敛一点也是极好的。</p>
+<p>最后，这些无良商家真的就没人出来管管？？</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">微信小程序糟糕的审核机制</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-02-26 14:01:32" itemprop="dateCreated datePublished" datetime="2018-02-26T14:01:32+08:00">2018-02-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/26/微信小程序糟糕的审核机制/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>闲来没事做了个红包类的小程序，大意是输入文字口令，然后别人读对即可领取红包。</p>
+<p>做小程序之前其实是做了很多功课的，包括但不限于事先做了一个简单的小程序上线熟悉流程、分析竞品等等。</p>
+<p>无奈提交审核的时候还遇到了一堆问题，嗯，对了，审核时间平均7天。 </p>
+</blockquote>
+<blockquote>
+<p>第一次打回： </p>
+<p>你好，因部分用户滥用小程序传播不良信息，导致部分小程序严重违反《即时通信工具公众信息服务发展管理暂行规定》和平台运营规范被平台永久下架。为避免您的小程序被滥用，建议你可以完善审核机制，保障发布内容的安全，为用户提供更好的服务。 </p>
+<p>数据库中没有发现任何测试数据，不知道是怎么判断没有审核机制的？ </p>
+</blockquote>
+<blockquote>
+<p>第二次打回： </p>
+<p>你好，用户自定义内容的记录及分享，包括文字、图片、视频、音频等，需补充社交-笔记类目。 </p>
+<p>按照腾讯的说法是只要有用户输入，就需要加入社交类目，但奇怪的是同类产品也没有社交类目，他们是怎么通过审核的？ </p>
+<p>说到现在就比较无奈了，补充社交类目需要 ICP 许可证，然而这个证书又比较难办，空壳公司基本办不下来，腾讯审核标准又不清不楚… 嗯…为何不能一视同仁呢？</p>
+</blockquote>
+<blockquote>
+<p>第三次打回： </p>
+<p>小程序简介未介绍小程序功能 .</p>
+<p>这个或许怪我，毕竟介绍写的不是很清楚，但是不能一次指出所有问题么？我们的时间也宝贵的啊…</p>
+</blockquote>
+<blockquote>
+<p>第四次打回： </p>
+<p>小程序实际所提供的服务属于尚未开放的服务类目。 </p>
+<p>嗯？还能说什么呢？</p>
+</blockquote>
+<blockquote>
+<p>ok，到现在为止我已经放弃了…</p>
+<p>可惜啊可惜，白白花费了这么多精力，万万没想到竟然败在了审核上！！</p>
+<p>做小程序需谨慎，应该说所有依附其他平台的产品都需要谨慎，毕竟他们掌握了你的生杀大权。</p>
+<p>或者说在国内做产品都要谨慎，毕竟大环境变得越来越封闭。</p>
+</blockquote>
+<blockquote>
+<p>另外说句题外话，做小程序(产品)有多麻烦呢？来算个流水账啊…</p>
+<p>服务端开发、客户端开发、踩坑(尤其是canvas绘图)；服务器、域名、备案、SSL证书；小程序平台注册、认证；微信支付注册、审核；第三方平台接入(语音识别/云存储/图片识别/情绪识别)等等…</p>
+<p>最后，共勉。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">PostgreSQL集群及读写分离方案</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-25 17:47:46" itemprop="dateCreated datePublished" datetime="2017-10-25T17:47:46+08:00">2017-10-25</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/25/PostgreSQL集群及读写分离方案/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>为了方便，只搭建一主一从。首先准备两台服务器，信息如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">IP</th>
+<th align="center">角色</th>
+<th align="center">端口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">192.168.0.31</td>
+<td align="center">master</td>
+<td align="center">5432</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">pgpool-II</td>
+<td align="center">9999</td>
+</tr>
+<tr>
+<td align="center">192.168.0.32</td>
+<td align="center">slave</td>
+<td align="center">5432</td>
+</tr>
+</tbody></table>
+<h2 id="一、基础环境配置"><a href="#一、基础环境配置" class="headerlink" title="一、基础环境配置"></a>一、基础环境配置</h2><ol>
+<li><p>host设置</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改vi /etc/hosts, 增加以下内容</span></span><br><span class="line">192.168.0.31 master</span><br><span class="line">192.168.0.32 slave</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<p> PostgreSQL</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加源</span></span><br><span class="line">rpm -Uvh https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载</span></span><br><span class="line">yum install postgresql10-server postgresql10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">/usr/pgsql-10/bin/postgresql-10-setup initdb</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">systemctl enable postgresql-10.service</span><br><span class="line">systemctl start postgresql-10.service</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 验证</span></span><br><span class="line">su - postgres -c "psql"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 出现以下信息则成功</span></span><br><span class="line">psql (10.0)</span><br><span class="line">Type "help" for help.</span><br><span class="line">postgres=#</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建密码</span></span><br><span class="line">postgres=# \password postgres</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看路径（/var/lib/pgsql/10/data）</span></span><br><span class="line">postgres=# show data_directory;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/pg_hba.conf)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host all all 127.0.0.1/32 ident 修改为允许所有网络登录，并使用md5方式进行认证：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host all all 0.0.0.0/0 md5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/postgresql.conf)</span></span><br><span class="line">listen_addresses = '*' # 表示开放外网访问</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 打开防火墙</span></span><br><span class="line">sudo firewall-cmd --add-service=postgresql --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">systemctl restart postgresql-10.service</span><br></pre></td></tr></table></figure>
+
+<p> pgpool-II</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">yum install http://www.pgpool.net/yum/rpms/3.7/redhat/rhel-7-x86_64/pgpool-II-release-3.7-1.noarch.rpm</span><br><span class="line">yum install pgpool-II-pg10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可选</span></span><br><span class="line">yum install pgpool-II-pg10-debuginfo</span><br><span class="line">yum install pgpool-II-pg10-devel</span><br><span class="line">yum install pgpool-II-pg10-extensions</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动</span></span><br><span class="line">systemctl enable pgpool.service</span><br><span class="line">systemctl start pgpool.service</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="二、流复制"><a href="#二、流复制" class="headerlink" title="二、流复制"></a>二、流复制</h2><ol>
+<li><p>Master</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建用于复制的用户</span></span><br><span class="line">su - postgres</span><br><span class="line">psql</span><br><span class="line">postgres=# CREATE ROLE pgrepuser REPLICATION LOGIN PASSWORD 'pgreppass';</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/pg_hba.conf)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host replication pgrepuser 0.0.0.0/0 md5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/postgresql.conf),修改配置(根据实际情况填写)</span></span><br><span class="line">wal_level = hot_standby</span><br><span class="line">archive_mode = on</span><br><span class="line">max_wal_sender = 4</span><br><span class="line">wal_keep_segments = 10</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启数据库</span></span><br><span class="line">systemctl restart postgresql-10.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Slave</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 停止服务</span></span><br><span class="line">systemctl stop postgresql-10.service</span><br><span class="line"></span><br><span class="line">su - postgres</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 pg_basebackup 生成备库</span></span><br><span class="line"><span class="meta">#</span><span class="bash">1. 清空 <span class="variable">$PGDATA</span> 目录</span></span><br><span class="line">rm -rf /var/lib/pgsql/10/data</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> pg_basebackup 命令生成备库</span></span><br><span class="line">pg_basebackup -D /var/lib/pgsql/10/data -Fp -Xs -v -P -h master -U pgrepuser</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/postgresql.conf)</span></span><br><span class="line">hot_standby = on</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建文件 (vi /var/lib/pgsql/10/data/recovery.conf)</span></span><br><span class="line">standby_mode = 'on'</span><br><span class="line">primary_conninfo = 'host=master port=5432 user=pgrepuser password=pgreppass'</span><br><span class="line">trigger_file = 'failover.now'</span><br><span class="line">recovery_target_timeline = 'latest'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启数据库</span></span><br><span class="line">systemctl restart postgresql-10.service</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">验证：在master新增数据slave节点可以看到数据。</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="三、读写分离"><a href="#三、读写分离" class="headerlink" title="三、读写分离"></a>三、读写分离</h2><ol>
+<li><p>pgpool配置</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/pgpool-II</span><br><span class="line">cp -pv pgpool.conf.sample-stream pgpool.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pgpool.conf</span></span><br><span class="line">listen_addresses = '*'# 外网访问</span><br><span class="line"><span class="meta">#</span><span class="bash"> 0为主库</span></span><br><span class="line">backend_hostname0 = 'master</span><br><span class="line">backend_port0 = 5432</span><br><span class="line">backend_weight0 = 0 # 分配比例</span><br><span class="line">backend_data_directory0 = '/var/lib/pgsql/10/data'</span><br><span class="line">backend_flag0 = 'ALLOW_TO_FAILOVER'</span><br><span class="line">backend_hostname1 = 'slave'</span><br><span class="line">backend_port1 = 5432</span><br><span class="line">backend_weight1 = 1</span><br><span class="line">backend_data_directory1 = '/var/lib/pgsql/10/data'</span><br><span class="line">backend_flag1 = 'ALLOW_TO_FAILOVER'</span><br><span class="line"><span class="meta">#</span><span class="bash">hba认证</span></span><br><span class="line">enable_pool_hba = on</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行<span class="built_in">log</span></span></span><br><span class="line">log_statement = on</span><br><span class="line">log_per_node_statement = on</span><br><span class="line"><span class="meta">#</span><span class="bash"> 流复制</span></span><br><span class="line">sr_check_user = 'replicator' # 流复制账号</span><br><span class="line">sr_check_password = '123456'  # 流复制密码</span><br><span class="line"><span class="meta">#</span><span class="bash"> 函数默认分发到从节点，过滤如下</span></span><br><span class="line">black_function_list = 'currval,lastval,nextval,setval,funcw_.*'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pool_hba.conf</span></span><br><span class="line">host    all         all         0.0.0.0/0          md5</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pcp.conf</span></span><br><span class="line">pcp:e10adc3949ba59abbe56e057f20f883e # 密码为123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成pool_passwd</span></span><br><span class="line">pg_md5  123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 与 postgresql 用户密码一致</span></span><br><span class="line">pg_md5 -m -u postges postgres</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动pgpool</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> systemctl restart pgpool.service </span></span><br><span class="line">pgpool -n -d &gt; /etc/pgpool-II/pgpool.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 连接</span></span><br><span class="line">su - postgres</span><br><span class="line">psql postgres -h master -p 9999 -U postgres</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 节点信息</span></span><br><span class="line">postgres=# show pool_nodes;</span><br><span class="line">node_id | hostname | port | status | lb_weight |  role   | select_cnt | load_balance_node | replication_delay </span><br><span class="line">---------+----------+------+--------+-----------+---------+------------+-------------------+-------------------</span><br><span class="line">0       | master   | 5432 | up     | 0.000000  | primary | 28         | false             | 0</span><br><span class="line">1       | slave    | 5432 | up     | 1.000000  | standby | 6          | true              | 0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看日志</span></span><br><span class="line">tail -f /etc/pgpool-II/pgpool.log </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面是测试情况：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> select 1;</span></span><br><span class="line">2017-10-30 06:38:25: pid 3637: LOG:  DB node id: 1 backend pid: 3658 statement: select * from test where id = 1;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> update <span class="built_in">test</span> <span class="built_in">set</span> name = <span class="string">'test'</span> <span class="built_in">where</span> id = 2;</span></span><br><span class="line">DB node id: 0 backend pid: 8032 statement: update test set name = 'test' where id = 2;</span><br><span class="line"><span class="meta">#</span><span class="bash">/*REPLICATION*/select 1; <span class="comment"># 强制master节点执行</span></span></span><br><span class="line">DB node id: 0 backend pid: 8032 statement: 	/*REPLICATION*/select 1;</span><br><span class="line"><span class="meta">#</span><span class="bash"> DB node id,0表示主节点执行，1表示从节点</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="四、错误解决"><a href="#四、错误解决" class="headerlink" title="四、错误解决"></a>四、错误解决</h2><ol>
+<li><p>端口占用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2017-10-30 01:50:21: pid 3790: FATAL:  failed to bind a socket: "/tmp/.s.PGSQL.9998"</span><br><span class="line">2017-10-30 01:50:21: pid 3790: DETAIL:  bind socket failed with error: "Address already in use"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 非正常结束导致的，删除以下目录即可</span></span><br><span class="line">rm -f /tmp/.s.PGSQL.9999</span><br><span class="line">rm -f /tmp/.s.PGSQL.9898</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+</li>
+</ol>
+<h2 id="五、后续优化"><a href="#五、后续优化" class="headerlink" title="五、后续优化"></a>五、后续优化</h2><ol>
+<li><p>宕机主从切换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pgpool.conf</span></span><br><span class="line">follow_master_command = '/etc/pgpool-II/failover_stream.sh'</span><br></pre></td></tr></table></figure>
+
+<p>新建切换脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/sh </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Failover <span class="built_in">command</span> <span class="keyword">for</span> streaming replication. </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arguments: <span class="variable">$1</span>: new master hostname. </span></span><br><span class="line"></span><br><span class="line">new_master=$1 </span><br><span class="line">trigger_command="$PGHOME/bin/pg_ctl promote -D $PGDATA" </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Prompte standby database. </span></span><br><span class="line">/usr/bin/ssh -T $new_master $trigger_command </span><br><span class="line"></span><br><span class="line">exit 0;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pgpool集群</p>
+<p>配置虚拟ip(delegate_IP)，使用WATCHDOG监控，服务A宕机时，服务B自动接管虚拟IP对外提供服务。​</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/10/14/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%8F%98%E8%BF%81-%E3%80%8E%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85%E3%80%8F%E6%9C%89%E6%84%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/14/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%8F%98%E8%BF%81-%E3%80%8E%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85%E3%80%8F%E6%9C%89%E6%84%9F/" class="post-title-link" itemprop="url">'未来世界的变迁-『未来世界的幸存者』有感'</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-14 09:54:51" itemprop="dateCreated datePublished" datetime="2017-10-14T09:54:51+08:00">2017-10-14</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/10/14/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%8F%98%E8%BF%81-%E3%80%8E%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85%E3%80%8F%E6%9C%89%E6%84%9F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/14/未来世界的变迁-『未来世界的幸存者』有感/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天刷朋友圈的时候看到这样一张照片，大致是一家餐厅机器人在点餐、送餐。</p>
+<p><img src="/2017/10/14/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%8F%98%E8%BF%81-%E3%80%8E%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85%E3%80%8F%E6%9C%89%E6%84%9F/robot.jpg" alt></p>
+<p>再加上之前看到阮一峰老师的一本书：《未来世界的幸存者》，思考很多，故写下感想。</p>
+<p>首先，引用书中一段话：</p>
+<blockquote>
+<p>机器人、自动化、人工智能正在变得比人类更强大。<br>在可预见的将来，技术最终将淘汰人类。  </p>
+</blockquote>
+<p>对于这个观点，我是比较认同的。夸张一点，可以说在未来五到十年时间电脑可以代替大多数工作，他们比人类做的更快更好。比如：机器人取代服务员、售货员；扫地机器人取代清洁员；ATM取代银行职员；自动驾驶取代司机，要知道目前特斯拉的 Autopilot 等级已经达到Level 3(某些情况下可以达到Level 4)；人工智能取代大部分客服、前台等等…被取代之后，他们要干什么呢？能干什么呢？</p>
+<p>你会说，新技术普及之后必然会衍生很多其他新兴行业。没错，确实会，但数量远远会小于被取代的职位。想想诺基亚时代的Symbian、这两年HTML 5的兴起与Flash的没落，这世上没有绝对安全的工作。换句话说，那些被淘汰的人们可以胜任么？答案也很明显，大部分人都不能胜任。为什么呢？因为你要从零开始，重新学习与你之前行业无关或关联性很少的技能。要知道啊，在这个高速发展的行业，跟刚出校门的学生站在同一起跑线，又有什么优势呢？</p>
+<p>再次引用书中一段话：</p>
+<blockquote>
+<p>不是每个人都善于学习，更不是每个人都具有学习的意愿。大多数人只希望生活舒适，不愿意动脑筋，去搞懂那些抽象的公式。而且，要求40、50岁的人跟刚走上社会的年轻人一样拼搏，也不现实。如果终生学习是唯一的就业出路，那对于多数人来说，就是没有出路。<br>…<br>当代国家是建立在人对国家有用的基础上的，大部分人的角色是工人和士兵。如果这些角色被机器取代，那么底层的人们对国家来说，也就不再重要了。国家很可能会忽视他们的需求，只是出于社会稳定的目的，提供基本的生活资料。而人们也比以往更依赖政府，因为如果政府停止救济，他们就无法养活自己。  </p>
+</blockquote>
+<p>第二段很像《北京折叠》中的场景，书中是这样描述的。</p>
+<blockquote>
+<p>大地的一面是第一空间，五百万人口，生存时间是从清晨六点到第二天清晨六点。空间休眠，大地翻转。翻转后的另一面是第二空间和第三空间。第二空间生活着两千五百万人口，从次日清晨六点到夜晚十点，第三空间生活着五千万人，从十点到清晨六点，然后回到第一空间。时间经过了精心规划和最优分配，小心翼翼隔离，五百万人享用二十四小时，七千五百万人享用另外二十四小时。</p>
+</blockquote>
+<p>不同的空间中，随着不同阶级住着不同的人：第一层毫无疑问就是当权者，第二层是中产阶级，第三层则是处于底层、被这个时代所抛弃的人。</p>
+<p>随着科技的进步，人力已经变得不是那么重要，准确的说是生活在底层的人不是那么重要。因为机器人早已可以替代他们，不幸的是，这些人占了大多数，当权者只不过为了社会稳定而保留这些工作。</p>
+<p>说到现在，我觉得每个人都要考虑因为某种原因不能继续现在的工作之后，自己的Plan B是什么？如果年轻的话或者考虑换掉目前在做并且未来短时间内可能被取代的工作，比如我正在Udacity学习机器学习这一课程。</p>
+<p>看完这本书后，我跟很多朋友都提起了这些观点并推荐了这本书。但，大部分都没什么反应。</p>
+<p>那么，我们应该有的危机意识呢？</p>
+<p>最后，附上《未来世界的幸存者》一书的在线阅读地址：<br><a href="https://ruanyf.github.io/survivor" target="_blank" rel="noopener">https://ruanyf.github.io/survivor</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/05/17/PostgreSQL%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/05/17/PostgreSQL%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%80%9D%E8%B7%AF/" class="post-title-link" itemprop="url">'PostgreSQL删除重复数据及思路'</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-05-17 10:51:06" itemprop="dateCreated datePublished" datetime="2017-05-17T10:51:06+08:00">2017-05-17</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/05/17/PostgreSQL%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE%E5%8F%8A%E6%80%9D%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/17/PostgreSQL删除重复数据及思路/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>刚才，遇到了 SQL去重的问题。</p>
+<p>然而这次和以往其他不同的是：这次数据整行记录（包括id）都是重复的。不能用group、max(id)这种以及类似的方式。抛开表设计的问题，这次来说下怎么去重。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--将数据去重后存入临时表,PostgreSQL会自动创建tmp_table以及表结构</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> * <span class="keyword">into</span> tmp_table <span class="keyword">from</span> repeat_table;</span><br><span class="line"><span class="comment">--删除原记录</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> repeat_table;</span><br><span class="line"><span class="comment">--将临时表数据插入原表</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> repeat_table <span class="keyword">select</span> * <span class="keyword">from</span> tmp_table;</span><br><span class="line"><span class="comment">--删除临时表</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> tmp_table;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>大功告成。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/02/21/ELK-ElasticSearch-Logstash-Kibana-%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/21/ELK-ElasticSearch-Logstash-Kibana-%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/" class="post-title-link" itemprop="url">ELK(ElasticSearch, Logstash, Kibana) 搭建实时日志分析平台</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-21 15:45:55" itemprop="dateCreated datePublished" datetime="2017-02-21T15:45:55+08:00">2017-02-21</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/02/21/ELK-ElasticSearch-Logstash-Kibana-%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/21/ELK-ElasticSearch-Logstash-Kibana-搭建实时日志分析平台/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文中所有软件版本均为最新版本5.X，网上ELK 5.X 版本资料较少，所以搭建过程种碰到了不少坑，仅记录简略搭建日志，后续如果有时间会整理详细搭建记录。</p>
+</blockquote>
+<h3 id="安装ElasticSearch"><a href="#安装ElasticSearch" class="headerlink" title="安装ElasticSearch"></a>安装ElasticSearch</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://www.elastic.co/downloads/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装 elasticsearch</span></span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.1.tar.gz</span><br><span class="line">tar xzf elasticsearch-5.2.1.tar.gz</span><br><span class="line">cd elasticsearch-5.2.1/</span><br></pre></td></tr></table></figure>
+
+<ol start="0">
+<li>修改配置 vi config/elasticsearch.yml 【可选】</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">cluster.name</span>=<span class="string">my-application</span></span><br><span class="line"><span class="meta">node.name</span>=<span class="string">node-1</span></span><br><span class="line"><span class="meta">path.data</span>=<span class="string">/tmp/elasticsearch/data</span></span><br><span class="line"><span class="meta">path.logs</span>=<span class="string">/tmp/elasticsearch/logs</span></span><br><span class="line"><span class="comment"># 0.0.0.0 则开启外网访问</span></span><br><span class="line"><span class="meta">network.host</span>=<span class="string">0.0.0.0</span></span><br><span class="line"><span class="meta">http.port</span>=<span class="string">9200</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>创建 path.xx 文件夹后，启动ElasticSearch</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch</span><br><span class="line">netstat -tln</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="安装elasticsearch-head"><a href="#安装elasticsearch-head" class="headerlink" title="安装elasticsearch-head"></a>安装elasticsearch-head</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装 elasticsearch-head</span></span><br><span class="line">git clone git://github.com/mobz/elasticsearch-head.git</span><br><span class="line">cd elasticsearch-head</span><br><span class="line">npm install</span><br><span class="line"><span class="meta">#</span><span class="bash"> npm install -g grunt --registry=https://registry.npm.taobao.org</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="0">
+<li>修改 vi Gruntfile.js 加入hostname: ‘0.0.0.0’,【可选】</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">connect: &#123;</span><br><span class="line">  server: &#123;</span><br><span class="line">    options: &#123;</span><br><span class="line">      hostname: '0.0.0.0',</span><br><span class="line">      port: 9100,</span><br><span class="line">      base: '.',</span><br><span class="line">      keepalive: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改vi config/elasticsearch.yml, 加入以下内容，否则可能导致连接不上elasticsearch</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http.cors.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">http.cors.allow-origin:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>开启 9100 端口并启动</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如未开放 9100 端口需先开放端口</span></span><br><span class="line">iptables -I INPUT -p tcp --dport 9100 -j ACCEPT</span><br><span class="line">service iptables save</span><br><span class="line"></span><br><span class="line">grunt server &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 访问 http://IP:9100/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装Logstash"><a href="#安装Logstash" class="headerlink" title="安装Logstash"></a>安装Logstash</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.1.tar.gz</span><br><span class="line">tar xzf logstash-5.2.1.tar.gz</span><br><span class="line">cd logstash-5.2.1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建配置文件 logstash-simple.conf ,配置以下内容</span></span><br><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  syslog &#123;# logback，logstash没有官方支持，配合jar包 net.logstash.logback</span><br><span class="line">  	type =&gt; "test-logback"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4562</span><br><span class="line">    codec =&gt; "json"</span><br><span class="line">  &#125;</span><br><span class="line">  log4j &#123; # log4j</span><br><span class="line">    type =&gt; "test-log4j"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4560</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">启动服务</span></span><br><span class="line">./bin/logstash -f logstash-simple.conf</span><br></pre></td></tr></table></figure>
+
+<h4 id="Java项目配置"><a href="#Java项目配置" class="headerlink" title="Java项目配置"></a>Java项目配置</h4><ol>
+<li>log4j配置以下内容</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># appender socket</span></span><br><span class="line"><span class="meta">log4j.appender.socket</span>=<span class="string">org.apache.log4j.net.SocketAppender</span></span><br><span class="line"><span class="comment"># 端口为logstash log4j 配置端口</span></span><br><span class="line"><span class="meta">log4j.appender.socket.Port</span>=<span class="string">4560</span></span><br><span class="line"><span class="meta">log4j.appender.socket.RemoteHost</span>=<span class="string">127.0.0.1</span></span><br><span class="line"><span class="meta">log4j.appender.socket.layout</span>=<span class="string">org.apache.log4j.Patte10000rnLayout</span></span><br><span class="line"><span class="meta">log4j.appender.socket.layout.ConversionPattern</span>=<span class="string">%d [%-5p] [%l] %m%n</span></span><br><span class="line"><span class="meta">log4j.appender.socket.ReconnectionDelay</span>=<span class="string">100</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>logback 使用以下配置</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--pom.xml 添加 jar 包 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.logstash.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logstash-logback-encoder<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--logback.xml 添加 udp 配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"stash"</span> <span class="attr">class</span>=<span class="string">"net.logstash.logback.appender.LogstashSocketAppender"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">host</span>&gt;</span>127.0.0.1<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 端口为logstash logback 配置端口 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span>&gt;</span>4562<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customFields</span>&gt;</span>&#123;"appname":"my log"&#125;<span class="tag">&lt;/<span class="name">customFields</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"stash"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装Kibana"><a href="#安装Kibana" class="headerlink" title="安装Kibana"></a>安装Kibana</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/kibana/kibana-5.0.0-linux-x86_64.tar.gz</span><br><span class="line">tar xzf kibana-5.0.0-linux-x86_64.tar.gz</span><br><span class="line">cd kibana-5.0.0-linux-x86_64</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装x-pack</span></span><br><span class="line">bin/kibana-plugin install x-pack</span><br><span class="line">./bin/kibana</span><br><span class="line"><span class="meta">#</span><span class="bash"> 访问 http://IP:5601</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="【可选】使用Redis做消息队列防止日志丢失"><a href="#【可选】使用Redis做消息队列防止日志丢失" class="headerlink" title="【可选】使用Redis做消息队列防止日志丢失"></a>【可选】使用Redis做消息队列防止日志丢失</h4><ol>
+<li>新建配置文件，写入 Redis</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  syslog &#123;</span><br><span class="line">    type =&gt; "test-logback"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4562</span><br><span class="line">    codec =&gt; "json"</span><br><span class="line">  &#125;</span><br><span class="line">  log4j &#123;</span><br><span class="line">    type =&gt; "test-log4j"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4560</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  # elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  redis &#123;   # 表示写入到redis中</span><br><span class="line">    host =&gt; "127.0.0.1"    # 指明redis服务器地址</span><br><span class="line">    port =&gt; 6379   # 指明redis端口</span><br><span class="line">    data_type =&gt; "list"       # 指定数据类型为list</span><br><span class="line">    key =&gt; "logstash"  # 指定存入的键</span><br><span class="line">  &#125;</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>从Redis 写入 ElasticSearch</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  redis &#123;   # 表示从redis中取出数据</span><br><span class="line">    host =&gt; "127.0.0.1"  </span><br><span class="line">    port =&gt; 6379</span><br><span class="line">    data_type =&gt; "list"</span><br><span class="line">    key =&gt; "logstash"   # 指定去logstash这个键中取出数据</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;#写入 elasticsearch</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="【可选】使用Kafka做消息队列防止日志丢失"><a href="#【可选】使用Kafka做消息队列防止日志丢失" class="headerlink" title="【可选】使用Kafka做消息队列防止日志丢失"></a>【可选】使用Kafka做消息队列防止日志丢失</h4><ol>
+<li>新建配置文件，写入 Kafka</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  syslog &#123;</span><br><span class="line">    type =&gt; "test-logback"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4562</span><br><span class="line">    codec =&gt; "json"</span><br><span class="line">  &#125;</span><br><span class="line">  log4j &#123;</span><br><span class="line">    type =&gt; "test-log4j"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4560</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  # elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  kafka &#123;  #输出到kafka</span><br><span class="line">    bootstrap_servers =&gt; "localhost:9092"  #生产者</span><br><span class="line">    codec =&gt; plain &#123;</span><br><span class="line">        format =&gt; "%&#123;host&#125; %&#123;logger_name&#125; %&#123;level&#125; %&#123;message&#125;"</span><br><span class="line">    &#125;</span><br><span class="line">  	compression_type =&gt; "snappy" # 压缩类型</span><br><span class="line">    topic_id =&gt; "logstash"  #这个将作为主题的名称，将会自动创建</span><br><span class="line">  &#125;</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>从Kafka写入 ElasticSearch</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  kafka &#123;</span><br><span class="line">      bootstrap_servers =&gt; "localhost:9092"  #消费者们</span><br><span class="line">      compression_type =&gt; "snappy" # 压缩类型</span><br><span class="line">      consumer_threads =&gt; 5 # 线程 默认 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;#写入 elasticsearch</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ELK-集群搭建"><a href="#ELK-集群搭建" class="headerlink" title="ELK 集群搭建"></a>ELK 集群搭建</h3><h4 id="ElasticSearch-集群搭建"><a href="#ElasticSearch-集群搭建" class="headerlink" title="ElasticSearch 集群搭建"></a>ElasticSearch 集群搭建</h4><ol>
+<li>修改 elasticsearch.yml (master)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 同一局域网下elasticsearch会自动发现相关节点，所以不用配置 discovery.zen.xxx 等参数</span><br><span class="line">cluster.name: my-es-cluster</span><br><span class="line">node.name: node-1</span><br></pre></td></tr></table></figure></li>
+<li>另一台服务器修改 elasticsearch.yml (node)，如果是同一台服务器搭建集群，复制 elasticsearch 目录时注意清空data目录<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: my-es-cluster</span><br><span class="line">node.name: node-2</span><br></pre></td></tr></table></figure></li>
+<li>logstash 配置 hosts 数组即可<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts &#x3D;&gt; [&quot;localhost:9200&quot;, &quot;localhost:9201&quot;, &quot;localhost:9202&quot;] &#125;</span><br><span class="line">  stdout &#123; codec &#x3D;&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Kafka-集群搭建"><a href="#Kafka-集群搭建" class="headerlink" title="Kafka 集群搭建"></a>Kafka 集群搭建</h4></li>
+<li>修改 server.properties<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># kafka 集群主要关注下面这两个参数极客</span><br><span class="line">broker.id&#x3D;0 # 当前机器在集群中的唯一标识，和zookeeper的myid性质一样</span><br><span class="line">zookeeper.connect&#x3D;localhost:2181,localhost:2182</span><br><span class="line"># windows 启动：.\bin\windows\kafka-server-start.bat .\config\server.properties</span><br></pre></td></tr></table></figure></li>
+<li>logstash output 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kafka &#123;  #输出到kafka</span><br><span class="line">  bootstrap_servers &#x3D;&gt; &quot;localhost:9092,localhost:9093,localhost:9094&quot;  #生产者 logstash 5.X kafka 插件不在依赖zookeeper，所以去掉了 zk_connect</span><br><span class="line">  compression_type &#x3D;&gt; &quot;snappy&quot; # 压缩类型</span><br><span class="line">  enable_metric &#x3D;&gt; true</span><br><span class="line">  topic_id &#x3D;&gt; &quot;logstash&quot;  #这个将作为主题的名称，将会自动创建</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>logstash input 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kafka &#123;</span><br><span class="line">    bootstrap_servers &#x3D;&gt; &quot;localhost:9092,localhost:9093,localhost:9094&quot;  #消费者们</span><br><span class="line">    consumer_threads &#x3D;&gt; 5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h4 id="ElasticSearch-启动错误解决方案"><a href="#ElasticSearch-启动错误解决方案" class="headerlink" title="ElasticSearch 启动错误解决方案"></a>ElasticSearch 启动错误解决方案</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1. ElasticSearch默认内存2G，启动报以下错误，则要在 vi jvm.options 修改 jvm 内存 -Xms512m  </span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000085330000, 2060255232, 0) failed; error&#x3D;&#39;Cannot allocate memory&#39; (errno&#x3D;12)</span><br><span class="line"></span><br><span class="line">2. ElasticSearch默认不允许root权限运行，报如下错误则要新建用户运行</span><br><span class="line">org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root</span><br><span class="line"></span><br><span class="line">groupadd elsearch</span><br><span class="line">useradd elsearch -g elsearch -p elasticsearch</span><br><span class="line">usermod -g root elsearch</span><br><span class="line">su elsearch</span><br><span class="line"></span><br><span class="line">3. java.io.IOException: Permission denied</span><br><span class="line">chown -R elsearch &#x2F;tmp&#x2F;elasticsearch</span><br><span class="line"></span><br><span class="line">4. initial heap size [16777216] not equal to maximum heap size [536870912]; this can cause resize pauses and prevents mlockall from locking the entire heap</span><br><span class="line">max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</span><br><span class="line">sudo sysctl -w vm.max_map_count&#x3D;262144</span><br><span class="line"></span><br><span class="line">5.   failed to send join request to master [&#123;node-1&#125; ... &#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125; with the same id but is a different node instance];</span><br><span class="line">集群搭建时出现该错误，解决方法为删除清空es目录下data目录</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>到这里ELK基本配置已经完了，但搭建中还遇到了几点问题没有解决，比如 logstash 怎么做集群？目前的方法是每台 server log 配置中都要配置需要连接的logstash地址，但这种在分布式视同中是不太合适的。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Louis Yang</p>
+  <div class="site-description" itemprop="description">程序猿一枚，偶尔写写故事、搞搞安全。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kulovecc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:admin@kulove.cc" title="E-Mail → mailto:admin@kulove.cc"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/kulovecc" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Louis Yang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://kulove-cc.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>

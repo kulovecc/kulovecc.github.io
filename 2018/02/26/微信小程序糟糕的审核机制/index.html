@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"kulove.cc","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="闲来没事做了个红包类的小程序，大意是输入文字口令，然后别人读对即可领取红包。 做小程序之前其实是做了很多功课的，包括但不限于事先做了一个简单的小程序上线熟悉流程、分析竞品等等。 无奈提交审核的时候还遇到了一堆问题，嗯，对了，审核时间平均7天。    第一次打回：  你好，因部分用户滥用小程序传播不良信息，导致部分小程序严重违反《即时通信工具公众信息服务发展管理暂行规定》和平台运营规范被平台永久下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序糟糕的审核机制">
+<meta property="og:url" content="http://kulove.cc/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="Louis Blog">
+<meta property="og:description" content="闲来没事做了个红包类的小程序，大意是输入文字口令，然后别人读对即可领取红包。 做小程序之前其实是做了很多功课的，包括但不限于事先做了一个简单的小程序上线熟悉流程、分析竞品等等。 无奈提交审核的时候还遇到了一堆问题，嗯，对了，审核时间平均7天。    第一次打回：  你好，因部分用户滥用小程序传播不良信息，导致部分小程序严重违反《即时通信工具公众信息服务发展管理暂行规定》和平台运营规范被平台永久下">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-02-26T06:01:32.000Z">
+<meta property="article:modified_time" content="2020-02-22T09:38:43.669Z">
+<meta property="article:author" content="Louis Yang">
+<meta property="article:tag" content="吐槽">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://kulove.cc/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>微信小程序糟糕的审核机制 | Louis Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108067514-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-108067514-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Louis Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微信小程序糟糕的审核机制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-02-26 14:01:32" itemprop="dateCreated datePublished" datetime="2018-02-26T14:01:32+08:00">2018-02-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/26/微信小程序糟糕的审核机制/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>闲来没事做了个红包类的小程序，大意是输入文字口令，然后别人读对即可领取红包。</p>
+<p>做小程序之前其实是做了很多功课的，包括但不限于事先做了一个简单的小程序上线熟悉流程、分析竞品等等。</p>
+<p>无奈提交审核的时候还遇到了一堆问题，嗯，对了，审核时间平均7天。 </p>
+</blockquote>
+<blockquote>
+<p>第一次打回： </p>
+<p>你好，因部分用户滥用小程序传播不良信息，导致部分小程序严重违反《即时通信工具公众信息服务发展管理暂行规定》和平台运营规范被平台永久下架。为避免您的小程序被滥用，建议你可以完善审核机制，保障发布内容的安全，为用户提供更好的服务。 </p>
+<p>数据库中没有发现任何测试数据，不知道是怎么判断没有审核机制的？ </p>
+</blockquote>
+<blockquote>
+<p>第二次打回： </p>
+<p>你好，用户自定义内容的记录及分享，包括文字、图片、视频、音频等，需补充社交-笔记类目。 </p>
+<p>按照腾讯的说法是只要有用户输入，就需要加入社交类目，但奇怪的是同类产品也没有社交类目，他们是怎么通过审核的？ </p>
+<p>说到现在就比较无奈了，补充社交类目需要 ICP 许可证，然而这个证书又比较难办，空壳公司基本办不下来，腾讯审核标准又不清不楚… 嗯…为何不能一视同仁呢？</p>
+</blockquote>
+<blockquote>
+<p>第三次打回： </p>
+<p>小程序简介未介绍小程序功能 .</p>
+<p>这个或许怪我，毕竟介绍写的不是很清楚，但是不能一次指出所有问题么？我们的时间也宝贵的啊…</p>
+</blockquote>
+<blockquote>
+<p>第四次打回： </p>
+<p>小程序实际所提供的服务属于尚未开放的服务类目。 </p>
+<p>嗯？还能说什么呢？</p>
+</blockquote>
+<blockquote>
+<p>ok，到现在为止我已经放弃了…</p>
+<p>可惜啊可惜，白白花费了这么多精力，万万没想到竟然败在了审核上！！</p>
+<p>做小程序需谨慎，应该说所有依附其他平台的产品都需要谨慎，毕竟他们掌握了你的生杀大权。</p>
+<p>或者说在国内做产品都要谨慎，毕竟大环境变得越来越封闭。</p>
+</blockquote>
+<blockquote>
+<p>另外说句题外话，做小程序(产品)有多麻烦呢？来算个流水账啊…</p>
+<p>服务端开发、客户端开发、踩坑(尤其是canvas绘图)；服务器、域名、备案、SSL证书；小程序平台注册、认证；微信支付注册、审核；第三方平台接入(语音识别/云存储/图片识别/情绪识别)等等…</p>
+<p>最后，共勉。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%90%90%E6%A7%BD/" rel="tag"># 吐槽</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/" rel="prev" title="PostgreSQL集群及读写分离方案">
+      <i class="fa fa-chevron-left"></i> PostgreSQL集群及读写分离方案
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/" rel="next" title="一兆韦德的无耻套路">
+      一兆韦德的无耻套路 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Louis Yang</p>
+  <div class="site-description" itemprop="description">程序猿一枚，偶尔写写故事、搞搞安全。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kulovecc" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:admin@kulove.cc" title="E-Mail → mailto:admin@kulove.cc"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/kulovecc" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;kulovecc" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Louis Yang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://kulove-cc.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://kulove.cc/2018/02/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%B3%9F%E7%B3%95%E7%9A%84%E5%AE%A1%E6%A0%B8%E6%9C%BA%E5%88%B6/";
+    this.page.identifier = "2018/02/26/微信小程序糟糕的审核机制/";
+    this.page.title = "微信小程序糟糕的审核机制";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://kulove-cc.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
