@@ -160,6 +160,176 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/02/21/ELK-ElasticSearch-Logstash-Kibana-%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/21/ELK-ElasticSearch-Logstash-Kibana-%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/" class="post-title-link" itemprop="url">ELK(ElasticSearch, Logstash, Kibana) 搭建实时日志分析平台</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-21 15:45:55" itemprop="dateCreated datePublished" datetime="2017-02-21T15:45:55+08:00">2017-02-21</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/02/21/ELK-ElasticSearch-Logstash-Kibana-%E6%90%AD%E5%BB%BA%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/21/ELK-ElasticSearch-Logstash-Kibana-搭建实时日志分析平台/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文中所有软件版本均为最新版本5.X，网上ELK 5.X 版本资料较少，所以搭建过程种碰到了不少坑，仅记录简略搭建日志，后续如果有时间会整理详细搭建记录。</p>
+</blockquote>
+<h3 id="安装ElasticSearch"><a href="#安装ElasticSearch" class="headerlink" title="安装ElasticSearch"></a>安装ElasticSearch</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://www.elastic.co/downloads/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装 elasticsearch</span></span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.2.1.tar.gz</span><br><span class="line">tar xzf elasticsearch-5.2.1.tar.gz</span><br><span class="line">cd elasticsearch-5.2.1/</span><br></pre></td></tr></table></figure>
+
+<ol start="0">
+<li>修改配置 vi config/elasticsearch.yml 【可选】</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">cluster.name</span>=<span class="string">my-application</span></span><br><span class="line"><span class="meta">node.name</span>=<span class="string">node-1</span></span><br><span class="line"><span class="meta">path.data</span>=<span class="string">/tmp/elasticsearch/data</span></span><br><span class="line"><span class="meta">path.logs</span>=<span class="string">/tmp/elasticsearch/logs</span></span><br><span class="line"><span class="comment"># 0.0.0.0 则开启外网访问</span></span><br><span class="line"><span class="meta">network.host</span>=<span class="string">0.0.0.0</span></span><br><span class="line"><span class="meta">http.port</span>=<span class="string">9200</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>创建 path.xx 文件夹后，启动ElasticSearch</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch</span><br><span class="line">netstat -tln</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="安装elasticsearch-head"><a href="#安装elasticsearch-head" class="headerlink" title="安装elasticsearch-head"></a>安装elasticsearch-head</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装 elasticsearch-head</span></span><br><span class="line">git clone git://github.com/mobz/elasticsearch-head.git</span><br><span class="line">cd elasticsearch-head</span><br><span class="line">npm install</span><br><span class="line"><span class="meta">#</span><span class="bash"> npm install -g grunt --registry=https://registry.npm.taobao.org</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="0">
+<li>修改 vi Gruntfile.js 加入hostname: ‘0.0.0.0’,【可选】</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">connect: &#123;</span><br><span class="line">  server: &#123;</span><br><span class="line">    options: &#123;</span><br><span class="line">      hostname: '0.0.0.0',</span><br><span class="line">      port: 9100,</span><br><span class="line">      base: '.',</span><br><span class="line">      keepalive: true</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改vi config/elasticsearch.yml, 加入以下内容，否则可能导致连接不上elasticsearch</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http.cors.enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">http.cors.allow-origin:</span> <span class="string">"*"</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>开启 9100 端口并启动</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 如未开放 9100 端口需先开放端口</span></span><br><span class="line">iptables -I INPUT -p tcp --dport 9100 -j ACCEPT</span><br><span class="line">service iptables save</span><br><span class="line"></span><br><span class="line">grunt server &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 访问 http://IP:9100/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装Logstash"><a href="#安装Logstash" class="headerlink" title="安装Logstash"></a>安装Logstash</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/logstash/logstash-5.2.1.tar.gz</span><br><span class="line">tar xzf logstash-5.2.1.tar.gz</span><br><span class="line">cd logstash-5.2.1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建配置文件 logstash-simple.conf ,配置以下内容</span></span><br><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  syslog &#123;# logback，logstash没有官方支持，配合jar包 net.logstash.logback</span><br><span class="line">  	type =&gt; "test-logback"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4562</span><br><span class="line">    codec =&gt; "json"</span><br><span class="line">  &#125;</span><br><span class="line">  log4j &#123; # log4j</span><br><span class="line">    type =&gt; "test-log4j"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4560</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">启动服务</span></span><br><span class="line">./bin/logstash -f logstash-simple.conf</span><br></pre></td></tr></table></figure>
+
+<h4 id="Java项目配置"><a href="#Java项目配置" class="headerlink" title="Java项目配置"></a>Java项目配置</h4><ol>
+<li>log4j配置以下内容</li>
+</ol>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># appender socket</span></span><br><span class="line"><span class="meta">log4j.appender.socket</span>=<span class="string">org.apache.log4j.net.SocketAppender</span></span><br><span class="line"><span class="comment"># 端口为logstash log4j 配置端口</span></span><br><span class="line"><span class="meta">log4j.appender.socket.Port</span>=<span class="string">4560</span></span><br><span class="line"><span class="meta">log4j.appender.socket.RemoteHost</span>=<span class="string">127.0.0.1</span></span><br><span class="line"><span class="meta">log4j.appender.socket.layout</span>=<span class="string">org.apache.log4j.Patte10000rnLayout</span></span><br><span class="line"><span class="meta">log4j.appender.socket.layout.ConversionPattern</span>=<span class="string">%d [%-5p] [%l] %m%n</span></span><br><span class="line"><span class="meta">log4j.appender.socket.ReconnectionDelay</span>=<span class="string">100</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>logback 使用以下配置</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--pom.xml 添加 jar 包 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.logstash.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logstash-logback-encoder<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--logback.xml 添加 udp 配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"stash"</span> <span class="attr">class</span>=<span class="string">"net.logstash.logback.appender.LogstashSocketAppender"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">host</span>&gt;</span>127.0.0.1<span class="tag">&lt;/<span class="name">host</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 端口为logstash logback 配置端口 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span>&gt;</span>4562<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">customFields</span>&gt;</span>&#123;"appname":"my log"&#125;<span class="tag">&lt;/<span class="name">customFields</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"stash"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装Kibana"><a href="#安装Kibana" class="headerlink" title="安装Kibana"></a>安装Kibana</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/kibana/kibana-5.0.0-linux-x86_64.tar.gz</span><br><span class="line">tar xzf kibana-5.0.0-linux-x86_64.tar.gz</span><br><span class="line">cd kibana-5.0.0-linux-x86_64</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装x-pack</span></span><br><span class="line">bin/kibana-plugin install x-pack</span><br><span class="line">./bin/kibana</span><br><span class="line"><span class="meta">#</span><span class="bash"> 访问 http://IP:5601</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="【可选】使用Redis做消息队列防止日志丢失"><a href="#【可选】使用Redis做消息队列防止日志丢失" class="headerlink" title="【可选】使用Redis做消息队列防止日志丢失"></a>【可选】使用Redis做消息队列防止日志丢失</h4><ol>
+<li>新建配置文件，写入 Redis</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  syslog &#123;</span><br><span class="line">    type =&gt; "test-logback"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4562</span><br><span class="line">    codec =&gt; "json"</span><br><span class="line">  &#125;</span><br><span class="line">  log4j &#123;</span><br><span class="line">    type =&gt; "test-log4j"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4560</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  # elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  redis &#123;   # 表示写入到redis中</span><br><span class="line">    host =&gt; "127.0.0.1"    # 指明redis服务器地址</span><br><span class="line">    port =&gt; 6379   # 指明redis端口</span><br><span class="line">    data_type =&gt; "list"       # 指定数据类型为list</span><br><span class="line">    key =&gt; "logstash"  # 指定存入的键</span><br><span class="line">  &#125;</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>从Redis 写入 ElasticSearch</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  redis &#123;   # 表示从redis中取出数据</span><br><span class="line">    host =&gt; "127.0.0.1"  </span><br><span class="line">    port =&gt; 6379</span><br><span class="line">    data_type =&gt; "list"</span><br><span class="line">    key =&gt; "logstash"   # 指定去logstash这个键中取出数据</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;#写入 elasticsearch</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="【可选】使用Kafka做消息队列防止日志丢失"><a href="#【可选】使用Kafka做消息队列防止日志丢失" class="headerlink" title="【可选】使用Kafka做消息队列防止日志丢失"></a>【可选】使用Kafka做消息队列防止日志丢失</h4><ol>
+<li>新建配置文件，写入 Kafka</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  syslog &#123;</span><br><span class="line">    type =&gt; "test-logback"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4562</span><br><span class="line">    codec =&gt; "json"</span><br><span class="line">  &#125;</span><br><span class="line">  log4j &#123;</span><br><span class="line">    type =&gt; "test-log4j"</span><br><span class="line">    host =&gt; "127.0.0.1"</span><br><span class="line">    port =&gt; 4560</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  # elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;</span><br><span class="line">  kafka &#123;  #输出到kafka</span><br><span class="line">    bootstrap_servers =&gt; "localhost:9092"  #生产者</span><br><span class="line">    codec =&gt; plain &#123;</span><br><span class="line">        format =&gt; "%&#123;host&#125; %&#123;logger_name&#125; %&#123;level&#125; %&#123;message&#125;"</span><br><span class="line">    &#125;</span><br><span class="line">  	compression_type =&gt; "snappy" # 压缩类型</span><br><span class="line">    topic_id =&gt; "logstash"  #这个将作为主题的名称，将会自动创建</span><br><span class="line">  &#125;</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>从Kafka写入 ElasticSearch</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line">  stdin &#123; &#125;</span><br><span class="line">  kafka &#123;</span><br><span class="line">      bootstrap_servers =&gt; "localhost:9092"  #消费者们</span><br><span class="line">      compression_type =&gt; "snappy" # 压缩类型</span><br><span class="line">      consumer_threads =&gt; 5 # 线程 默认 1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts =&gt; ["localhost:9200"] &#125;#写入 elasticsearch</span><br><span class="line">  # stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ELK-集群搭建"><a href="#ELK-集群搭建" class="headerlink" title="ELK 集群搭建"></a>ELK 集群搭建</h3><h4 id="ElasticSearch-集群搭建"><a href="#ElasticSearch-集群搭建" class="headerlink" title="ElasticSearch 集群搭建"></a>ElasticSearch 集群搭建</h4><ol>
+<li>修改 elasticsearch.yml (master)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 同一局域网下elasticsearch会自动发现相关节点，所以不用配置 discovery.zen.xxx 等参数</span><br><span class="line">cluster.name: my-es-cluster</span><br><span class="line">node.name: node-1</span><br></pre></td></tr></table></figure></li>
+<li>另一台服务器修改 elasticsearch.yml (node)，如果是同一台服务器搭建集群，复制 elasticsearch 目录时注意清空data目录<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: my-es-cluster</span><br><span class="line">node.name: node-2</span><br></pre></td></tr></table></figure></li>
+<li>logstash 配置 hosts 数组即可<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">  elasticsearch &#123; hosts &#x3D;&gt; [&quot;localhost:9200&quot;, &quot;localhost:9201&quot;, &quot;localhost:9202&quot;] &#125;</span><br><span class="line">  stdout &#123; codec &#x3D;&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Kafka-集群搭建"><a href="#Kafka-集群搭建" class="headerlink" title="Kafka 集群搭建"></a>Kafka 集群搭建</h4></li>
+<li>修改 server.properties<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># kafka 集群主要关注下面这两个参数极客</span><br><span class="line">broker.id&#x3D;0 # 当前机器在集群中的唯一标识，和zookeeper的myid性质一样</span><br><span class="line">zookeeper.connect&#x3D;localhost:2181,localhost:2182</span><br><span class="line"># windows 启动：.\bin\windows\kafka-server-start.bat .\config\server.properties</span><br></pre></td></tr></table></figure></li>
+<li>logstash output 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kafka &#123;  #输出到kafka</span><br><span class="line">  bootstrap_servers &#x3D;&gt; &quot;localhost:9092,localhost:9093,localhost:9094&quot;  #生产者 logstash 5.X kafka 插件不在依赖zookeeper，所以去掉了 zk_connect</span><br><span class="line">  compression_type &#x3D;&gt; &quot;snappy&quot; # 压缩类型</span><br><span class="line">  enable_metric &#x3D;&gt; true</span><br><span class="line">  topic_id &#x3D;&gt; &quot;logstash&quot;  #这个将作为主题的名称，将会自动创建</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>logstash input 配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kafka &#123;</span><br><span class="line">    bootstrap_servers &#x3D;&gt; &quot;localhost:9092,localhost:9093,localhost:9094&quot;  #消费者们</span><br><span class="line">    consumer_threads &#x3D;&gt; 5</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h4 id="ElasticSearch-启动错误解决方案"><a href="#ElasticSearch-启动错误解决方案" class="headerlink" title="ElasticSearch 启动错误解决方案"></a>ElasticSearch 启动错误解决方案</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1. ElasticSearch默认内存2G，启动报以下错误，则要在 vi jvm.options 修改 jvm 内存 -Xms512m  </span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x0000000085330000, 2060255232, 0) failed; error&#x3D;&#39;Cannot allocate memory&#39; (errno&#x3D;12)</span><br><span class="line"></span><br><span class="line">2. ElasticSearch默认不允许root权限运行，报如下错误则要新建用户运行</span><br><span class="line">org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root</span><br><span class="line"></span><br><span class="line">groupadd elsearch</span><br><span class="line">useradd elsearch -g elsearch -p elasticsearch</span><br><span class="line">usermod -g root elsearch</span><br><span class="line">su elsearch</span><br><span class="line"></span><br><span class="line">3. java.io.IOException: Permission denied</span><br><span class="line">chown -R elsearch &#x2F;tmp&#x2F;elasticsearch</span><br><span class="line"></span><br><span class="line">4. initial heap size [16777216] not equal to maximum heap size [536870912]; this can cause resize pauses and prevents mlockall from locking the entire heap</span><br><span class="line">max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</span><br><span class="line">sudo sysctl -w vm.max_map_count&#x3D;262144</span><br><span class="line"></span><br><span class="line">5.   failed to send join request to master [&#123;node-1&#125; ... &#123;127.0.0.1&#125;&#123;127.0.0.1:9300&#125; with the same id but is a different node instance];</span><br><span class="line">集群搭建时出现该错误，解决方法为删除清空es目录下data目录</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>到这里ELK基本配置已经完了，但搭建中还遇到了几点问题没有解决，比如 logstash 怎么做集群？目前的方法是每台 server log 配置中都要配置需要连接的logstash地址，但这种在分布式视同中是不太合适的。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/01/22/%E6%90%AD%E5%BB%BACrucible%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -879,7 +1049,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
