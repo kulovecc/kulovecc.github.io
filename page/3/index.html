@@ -23,26 +23,26 @@
   <meta name="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Louis Blog">
-<meta property="og:url" content="http://kulove.cc/tags/pgpool/index.html">
+<meta property="og:url" content="http://kulove.cc/page/3/index.html">
 <meta property="og:site_name" content="Louis Blog">
 <meta property="og:description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Louis Yang">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://kulove.cc/tags/pgpool/">
+<link rel="canonical" href="http://kulove.cc/page/3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
+    isHome: true,
     isPost: false
   };
 </script>
 
-  <title>Tag: pgpool | Louis Blog</title>
+  <title>Louis Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108067514-1"></script>
     <script>
@@ -155,49 +155,126 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+        
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">pgpool
-          <small>Tag</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">使用Hexo、Github搭建博客全过程</a>
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-26 18:04:01" itemprop="dateCreated datePublished" datetime="2016-04-26T18:04:01+08:00">2016-04-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/26/使用Hexo、Github搭建博客全过程/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2017</h1>
+          <p>记得第一个独立博客是几年前使用emlog搭建在sae的，后来因为sae的I/O等诸多限制不得不转战其他服务商，后来经过一些选择就使用bae搭建了WordPress博客，果不其然，过了不久bae又开始了强制备案。。无奈，只得选择使用国外服务器自建博客，今天发现使用Hexo和Github来搭建静态博客还不错，故记录下详细过程，以供参考。</p>
+<h3 id="注册Github、添加SSH-key-、创建username-github-io"><a href="#注册Github、添加SSH-key-、创建username-github-io" class="headerlink" title="注册Github、添加SSH key 、创建username.github.io"></a>注册Github、添加SSH key 、创建username.github.io</h3><p>注册自然不用多说，直接来添加SSH key，windows可通过Git Bash来执行以下命令生成SSH key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>一路回车将id_rsa.pub复制添加到github-settings-ssh keys即可</p>
+<p>创建repository，格式为username.github.io</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install-g hexo</span><br></pre></td></tr></table></figure>
+
+<p>初始化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>生成静态资源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>启动服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>创建文章：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动完成后可通过 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 来访问</p>
+<h3 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h3><p>配置一些基本信息就不多说了，直接说怎么配置上传github，打开_config.yml，找到deploy，按照以下内容添加修改即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:username&#x2F;username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>hexo需执行以下命令,否则上传不到github</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>执行以下命令部署到github</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>然后访问username.github.io就可以看到效果啦！</p>
+<p>以后每次部署需执行下面三步命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h3 id="绑定独立域名"><a href="#绑定独立域名" class="headerlink" title="绑定独立域名"></a>绑定独立域名</h3><p>在source文件夹新建CNAME文件内容为你的域名即可，例如：kulove.cc，最后将记录类型为CNAME的@、www解析到username.github.io即完成独立域名绑定。</p>
+<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>ok，到这里hexo的安装已经告一段落了，但俗话说的好，人靠衣装马靠鞍，接下来我们要去换一款主题，这里以NexT为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-hexo-site</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+
+<p>然后将_config.yml里的theme改为next即可。</p>
+
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2017-10-25T17:47:46+08:00"
-              content="2017-10-25">
-          10-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/" itemprop="url">
-            <span itemprop="name">PostgreSQL集群及读写分离方案</span>
-          </a>
-      </h2>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 
 

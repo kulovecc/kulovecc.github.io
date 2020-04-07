@@ -160,6 +160,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">PostgreSQL集群及读写分离方案</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-25 17:47:46" itemprop="dateCreated datePublished" datetime="2017-10-25T17:47:46+08:00">2017-10-25</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/10/25/PostgreSQL%E9%9B%86%E7%BE%A4%E5%8F%8A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E6%A1%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/25/PostgreSQL集群及读写分离方案/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>为了方便，只搭建一主一从。首先准备两台服务器，信息如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">IP</th>
+<th align="center">角色</th>
+<th align="center">端口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">192.168.0.31</td>
+<td align="center">master</td>
+<td align="center">5432</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">pgpool-II</td>
+<td align="center">9999</td>
+</tr>
+<tr>
+<td align="center">192.168.0.32</td>
+<td align="center">slave</td>
+<td align="center">5432</td>
+</tr>
+</tbody></table>
+<h2 id="一、基础环境配置"><a href="#一、基础环境配置" class="headerlink" title="一、基础环境配置"></a>一、基础环境配置</h2><ol>
+<li><p>host设置</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改vi /etc/hosts, 增加以下内容</span></span><br><span class="line">192.168.0.31 master</span><br><span class="line">192.168.0.32 slave</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<p> PostgreSQL</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加源</span></span><br><span class="line">rpm -Uvh https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载</span></span><br><span class="line">yum install postgresql10-server postgresql10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">/usr/pgsql-10/bin/postgresql-10-setup initdb</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">systemctl enable postgresql-10.service</span><br><span class="line">systemctl start postgresql-10.service</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 验证</span></span><br><span class="line">su - postgres -c "psql"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 出现以下信息则成功</span></span><br><span class="line">psql (10.0)</span><br><span class="line">Type "help" for help.</span><br><span class="line">postgres=#</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 创建密码</span></span><br><span class="line">postgres=# \password postgres</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看路径（/var/lib/pgsql/10/data）</span></span><br><span class="line">postgres=# show data_directory;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/pg_hba.conf)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host all all 127.0.0.1/32 ident 修改为允许所有网络登录，并使用md5方式进行认证：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host all all 0.0.0.0/0 md5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/postgresql.conf)</span></span><br><span class="line">listen_addresses = '*' # 表示开放外网访问</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 打开防火墙</span></span><br><span class="line">sudo firewall-cmd --add-service=postgresql --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启</span></span><br><span class="line">systemctl restart postgresql-10.service</span><br></pre></td></tr></table></figure>
+
+<p> pgpool-II</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">yum install http://www.pgpool.net/yum/rpms/3.7/redhat/rhel-7-x86_64/pgpool-II-release-3.7-1.noarch.rpm</span><br><span class="line">yum install pgpool-II-pg10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可选</span></span><br><span class="line">yum install pgpool-II-pg10-debuginfo</span><br><span class="line">yum install pgpool-II-pg10-devel</span><br><span class="line">yum install pgpool-II-pg10-extensions</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">启动</span></span><br><span class="line">systemctl enable pgpool.service</span><br><span class="line">systemctl start pgpool.service</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="二、流复制"><a href="#二、流复制" class="headerlink" title="二、流复制"></a>二、流复制</h2><ol>
+<li><p>Master</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建用于复制的用户</span></span><br><span class="line">su - postgres</span><br><span class="line">psql</span><br><span class="line">postgres=# CREATE ROLE pgrepuser REPLICATION LOGIN PASSWORD 'pgreppass';</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/pg_hba.conf)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> host replication pgrepuser 0.0.0.0/0 md5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/postgresql.conf),修改配置(根据实际情况填写)</span></span><br><span class="line">wal_level = hot_standby</span><br><span class="line">archive_mode = on</span><br><span class="line">max_wal_sender = 4</span><br><span class="line">wal_keep_segments = 10</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启数据库</span></span><br><span class="line">systemctl restart postgresql-10.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Slave</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 停止服务</span></span><br><span class="line">systemctl stop postgresql-10.service</span><br><span class="line"></span><br><span class="line">su - postgres</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 pg_basebackup 生成备库</span></span><br><span class="line"><span class="meta">#</span><span class="bash">1. 清空 <span class="variable">$PGDATA</span> 目录</span></span><br><span class="line">rm -rf /var/lib/pgsql/10/data</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> pg_basebackup 命令生成备库</span></span><br><span class="line">pg_basebackup -D /var/lib/pgsql/10/data -Fp -Xs -v -P -h master -U pgrepuser</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑文件 (vi /var/lib/pgsql/10/data/postgresql.conf)</span></span><br><span class="line">hot_standby = on</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建文件 (vi /var/lib/pgsql/10/data/recovery.conf)</span></span><br><span class="line">standby_mode = 'on'</span><br><span class="line">primary_conninfo = 'host=master port=5432 user=pgrepuser password=pgreppass'</span><br><span class="line">trigger_file = 'failover.now'</span><br><span class="line">recovery_target_timeline = 'latest'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启数据库</span></span><br><span class="line">systemctl restart postgresql-10.service</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">验证：在master新增数据slave节点可以看到数据。</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="三、读写分离"><a href="#三、读写分离" class="headerlink" title="三、读写分离"></a>三、读写分离</h2><ol>
+<li><p>pgpool配置</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/pgpool-II</span><br><span class="line">cp -pv pgpool.conf.sample-stream pgpool.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pgpool.conf</span></span><br><span class="line">listen_addresses = '*'# 外网访问</span><br><span class="line"><span class="meta">#</span><span class="bash"> 0为主库</span></span><br><span class="line">backend_hostname0 = 'master</span><br><span class="line">backend_port0 = 5432</span><br><span class="line">backend_weight0 = 0 # 分配比例</span><br><span class="line">backend_data_directory0 = '/var/lib/pgsql/10/data'</span><br><span class="line">backend_flag0 = 'ALLOW_TO_FAILOVER'</span><br><span class="line">backend_hostname1 = 'slave'</span><br><span class="line">backend_port1 = 5432</span><br><span class="line">backend_weight1 = 1</span><br><span class="line">backend_data_directory1 = '/var/lib/pgsql/10/data'</span><br><span class="line">backend_flag1 = 'ALLOW_TO_FAILOVER'</span><br><span class="line"><span class="meta">#</span><span class="bash">hba认证</span></span><br><span class="line">enable_pool_hba = on</span><br><span class="line"><span class="meta">#</span><span class="bash"> 执行<span class="built_in">log</span></span></span><br><span class="line">log_statement = on</span><br><span class="line">log_per_node_statement = on</span><br><span class="line"><span class="meta">#</span><span class="bash"> 流复制</span></span><br><span class="line">sr_check_user = 'replicator' # 流复制账号</span><br><span class="line">sr_check_password = '123456'  # 流复制密码</span><br><span class="line"><span class="meta">#</span><span class="bash"> 函数默认分发到从节点，过滤如下</span></span><br><span class="line">black_function_list = 'currval,lastval,nextval,setval,funcw_.*'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pool_hba.conf</span></span><br><span class="line">host    all         all         0.0.0.0/0          md5</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pcp.conf</span></span><br><span class="line">pcp:e10adc3949ba59abbe56e057f20f883e # 密码为123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生成pool_passwd</span></span><br><span class="line">pg_md5  123456</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 与 postgresql 用户密码一致</span></span><br><span class="line">pg_md5 -m -u postges postgres</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动pgpool</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> systemctl restart pgpool.service </span></span><br><span class="line">pgpool -n -d &gt; /etc/pgpool-II/pgpool.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 连接</span></span><br><span class="line">su - postgres</span><br><span class="line">psql postgres -h master -p 9999 -U postgres</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 节点信息</span></span><br><span class="line">postgres=# show pool_nodes;</span><br><span class="line">node_id | hostname | port | status | lb_weight |  role   | select_cnt | load_balance_node | replication_delay </span><br><span class="line">---------+----------+------+--------+-----------+---------+------------+-------------------+-------------------</span><br><span class="line">0       | master   | 5432 | up     | 0.000000  | primary | 28         | false             | 0</span><br><span class="line">1       | slave    | 5432 | up     | 1.000000  | standby | 6          | true              | 0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看日志</span></span><br><span class="line">tail -f /etc/pgpool-II/pgpool.log </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下面是测试情况：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> select 1;</span></span><br><span class="line">2017-10-30 06:38:25: pid 3637: LOG:  DB node id: 1 backend pid: 3658 statement: select * from test where id = 1;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> update <span class="built_in">test</span> <span class="built_in">set</span> name = <span class="string">'test'</span> <span class="built_in">where</span> id = 2;</span></span><br><span class="line">DB node id: 0 backend pid: 8032 statement: update test set name = 'test' where id = 2;</span><br><span class="line"><span class="meta">#</span><span class="bash">/*REPLICATION*/select 1; <span class="comment"># 强制master节点执行</span></span></span><br><span class="line">DB node id: 0 backend pid: 8032 statement: 	/*REPLICATION*/select 1;</span><br><span class="line"><span class="meta">#</span><span class="bash"> DB node id,0表示主节点执行，1表示从节点</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h2 id="四、错误解决"><a href="#四、错误解决" class="headerlink" title="四、错误解决"></a>四、错误解决</h2><ol>
+<li><p>端口占用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2017-10-30 01:50:21: pid 3790: FATAL:  failed to bind a socket: "/tmp/.s.PGSQL.9998"</span><br><span class="line">2017-10-30 01:50:21: pid 3790: DETAIL:  bind socket failed with error: "Address already in use"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 非正常结束导致的，删除以下目录即可</span></span><br><span class="line">rm -f /tmp/.s.PGSQL.9999</span><br><span class="line">rm -f /tmp/.s.PGSQL.9898</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+</li>
+</ol>
+<h2 id="五、后续优化"><a href="#五、后续优化" class="headerlink" title="五、后续优化"></a>五、后续优化</h2><ol>
+<li><p>宕机主从切换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 修改 vi pgpool.conf</span></span><br><span class="line">follow_master_command = '/etc/pgpool-II/failover_stream.sh'</span><br></pre></td></tr></table></figure>
+
+<p>新建切换脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/sh </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Failover <span class="built_in">command</span> <span class="keyword">for</span> streaming replication. </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Arguments: <span class="variable">$1</span>: new master hostname. </span></span><br><span class="line"></span><br><span class="line">new_master=$1 </span><br><span class="line">trigger_command="$PGHOME/bin/pg_ctl promote -D $PGDATA" </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Prompte standby database. </span></span><br><span class="line">/usr/bin/ssh -T $new_master $trigger_command </span><br><span class="line"></span><br><span class="line">exit 0;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pgpool集群</p>
+<p>配置虚拟ip(delegate_IP)，使用WATCHDOG监控，服务A宕机时，服务B自动接管虚拟IP对外提供服务。​</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://kulove.cc/2017/10/14/%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%8F%98%E8%BF%81-%E3%80%8E%E6%9C%AA%E6%9D%A5%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B8%E5%AD%98%E8%80%85%E3%80%8F%E6%9C%89%E6%84%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1040,124 +1188,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Louis Yang">
-      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Louis Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">使用Hexo、Github搭建博客全过程</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-04-26 18:04:01" itemprop="dateCreated datePublished" datetime="2016-04-26T18:04:01+08:00">2016-04-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/26/使用Hexo、Github搭建博客全过程/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>记得第一个独立博客是几年前使用emlog搭建在sae的，后来因为sae的I/O等诸多限制不得不转战其他服务商，后来经过一些选择就使用bae搭建了WordPress博客，果不其然，过了不久bae又开始了强制备案。。无奈，只得选择使用国外服务器自建博客，今天发现使用Hexo和Github来搭建静态博客还不错，故记录下详细过程，以供参考。</p>
-<h3 id="注册Github、添加SSH-key-、创建username-github-io"><a href="#注册Github、添加SSH-key-、创建username-github-io" class="headerlink" title="注册Github、添加SSH key 、创建username.github.io"></a>注册Github、添加SSH key 、创建username.github.io</h3><p>注册自然不用多说，直接来添加SSH key，windows可通过Git Bash来执行以下命令生成SSH key</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot;</span><br></pre></td></tr></table></figure>
-
-<p>一路回车将id_rsa.pub复制添加到github-settings-ssh keys即可</p>
-<p>创建repository，格式为username.github.io</p>
-<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>执行以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install-g hexo</span><br></pre></td></tr></table></figure>
-
-<p>初始化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<p>生成静态资源：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
-<p>启动服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>创建文章：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>启动完成后可通过 <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 来访问</p>
-<h3 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h3><p>配置一些基本信息就不多说了，直接说怎么配置上传github，打开_config.yml，找到deploy，按照以下内容添加修改即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:username&#x2F;username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-<p>hexo需执行以下命令,否则上传不到github</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>执行以下命令部署到github</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>然后访问username.github.io就可以看到效果啦！</p>
-<p>以后每次部署需执行下面三步命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="绑定独立域名"><a href="#绑定独立域名" class="headerlink" title="绑定独立域名"></a>绑定独立域名</h3><p>在source文件夹新建CNAME文件内容为你的域名即可，例如：kulove.cc，最后将记录类型为CNAME的@、www解析到username.github.io即完成独立域名绑定。</p>
-<h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>ok，到这里hexo的安装已经告一段落了，但俗话说的好，人靠衣装马靠鞍，接下来我们要去换一款主题，这里以NexT为例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-hexo-site</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
-
-<p>然后将_config.yml里的theme改为next即可。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1223,7 +1258,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
