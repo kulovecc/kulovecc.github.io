@@ -160,6 +160,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2016/04/29/%E4%BD%BF%E7%94%A8net-speeder%E3%80%81FinalSpeed%E5%8A%A0%E9%80%9FShadowsocks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2016/04/29/%E4%BD%BF%E7%94%A8net-speeder%E3%80%81FinalSpeed%E5%8A%A0%E9%80%9FShadowsocks/" class="post-title-link" itemprop="url">使用net-speeder、FinalSpeed加速Shadowsocks</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-29 10:02:13" itemprop="dateCreated datePublished" datetime="2016-04-29T10:02:13+08:00">2016-04-29</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2016/04/29/%E4%BD%BF%E7%94%A8net-speeder%E3%80%81FinalSpeed%E5%8A%A0%E9%80%9FShadowsocks/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/29/使用net-speeder、FinalSpeed加速Shadowsocks/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装net-speeder"><a href="#安装net-speeder" class="headerlink" title="安装net-speeder"></a>安装net-speeder</h2><h3 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">安装步骤：</span><br><span class="line"></span><br><span class="line">1：下载源码并解压</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;snooda&#x2F;net-speeder&#x2F;archive&#x2F;master.zip</span><br><span class="line">unzip master.zip</span><br><span class="line">2：准备编译环境centos</span><br><span class="line"></span><br><span class="line">#下载epel：https:&#x2F;&#x2F;fedoraproject.org&#x2F;wiki&#x2F;EPEL&#x2F;zh-cn 例：CentOS6 64位：</span><br><span class="line">wget http:&#x2F;&#x2F;dl.fedoraproject.org&#x2F;pub&#x2F;epel&#x2F;6&#x2F;x86_64&#x2F;epel-release-6-8.noarch.rpm</span><br><span class="line">#安装epel：</span><br><span class="line">rpm -ivh epel-release-6-8.noarch.rpm</span><br><span class="line">#然后即可使用yum安装：</span><br><span class="line">yum install libnet libpcap libnet-devel libpcap-devel</span><br><span class="line">#安装GCC</span><br><span class="line">yum install gcc</span><br><span class="line"></span><br><span class="line">Linux Cooked interface使用编译（venetX，OpenVZ）：</span><br><span class="line">sh build.sh -DCOOKED</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">使用方法(需要root权限启动）：</span><br><span class="line">#参数：.&#x2F;net_speeder 网卡名 加速规则（bpf规则）</span><br><span class="line">#ovz用法(加速所有ip协议数据)：</span><br><span class="line">.&#x2F;net_speeder venet0 &quot;ip&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一键安装脚本（推荐）"><a href="#一键安装脚本（推荐）" class="headerlink" title="一键安装脚本（推荐）"></a>一键安装脚本（推荐）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#下载脚本</span><br><span class="line">wget --no-check-certificate https:&#x2F;&#x2F;gist.github.com&#x2F;LazyZhu&#x2F;dc3f2f84c336a08fd6a5&#x2F;raw&#x2F;d8aa4bcf955409e28a262ccf52921a65fe49da99&#x2F;net_speeder_lazyinstall.sh</span><br><span class="line">sh net_speeder_lazyinstall.sh</span><br><span class="line">#启动  </span><br><span class="line">nohup &#x2F;usr&#x2F;local&#x2F;net_speeder&#x2F;net_speeder venet0 &quot;ip&quot; &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</span><br><span class="line">#检查是否成功</span><br><span class="line">ping google.com</span><br><span class="line">#出现(DUP!)即为成功</span><br><span class="line">#加入开机启动</span><br><span class="line">echo &#39;nohup &#x2F;usr&#x2F;local&#x2F;net_speeder&#x2F;net_speeder venet0 &quot;ip&quot; &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;&#39; &gt;&gt; &#x2F;etc&#x2F;rc.local</span><br><span class="line"></span><br><span class="line">windows10 ss3连接不上：services.msc - 禁用 IP Helper</span><br><span class="line">如果还是不行依次执行以下命令：</span><br><span class="line">netsh interface ipv4 reset</span><br><span class="line">netsh interface ipv6 reset</span><br><span class="line">netsh winsock reset</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装FinalSpeed"><a href="#安装FinalSpeed" class="headerlink" title="安装FinalSpeed"></a>安装FinalSpeed</h2><h3 id="服务端一键安装"><a href="#服务端一键安装" class="headerlink" title="服务端一键安装"></a>服务端一键安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">rm -f install_fs.sh</span><br><span class="line">wget  http:&#x2F;&#x2F;fs.d1sm.net&#x2F;finalspeed&#x2F;install_fs.sh</span><br><span class="line">chmod +x install_fs.sh</span><br><span class="line">.&#x2F;install_fs.sh 2&gt;&amp;1 | tee install.log</span><br><span class="line"></span><br><span class="line">#设置开机启动</span><br><span class="line">chmod +x &#x2F;etc&#x2F;rc.local</span><br><span class="line">vi &#x2F;etc&#x2F;rc.local</span><br><span class="line">#加入</span><br><span class="line">sh &#x2F;fs&#x2F;start.sh</span><br><span class="line"></span><br><span class="line">#每天晚上3点自动重启</span><br><span class="line">crontab -e</span><br><span class="line">#加入</span><br><span class="line">0 3 * * *  sh &#x2F;fs&#x2F;restart.sh</span><br></pre></td></tr></table></figure>
+
+<p>客户端填写服务器IP和端口即可，值得注意的是服务器为openvz架构,客户端只能选udp协议，Shadowsocks端填写127.0.0.1、端口为FinalSpeed客户端填写的本地端口。</p>
+<p>安装完后速度何止快了几倍。</p>
+<p>参考资料如下：</p>
+<p><a href="https://github.com/d1sm/finalspeed" target="_blank" rel="noopener">https://github.com/d1sm/finalspeed</a></p>
+<p><a href="https://github.com/snooda/net-speeder" target="_blank" rel="noopener">https://github.com/snooda/net-speeder</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://kulove.cc/2016/04/26/%E4%BD%BF%E7%94%A8Hexo%E3%80%81Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E5%85%A8%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -339,7 +421,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
